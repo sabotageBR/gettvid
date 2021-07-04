@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<f:view contentType="text/html">
+	<h:head>
+		<title>#{resources['label.global.tituloglobal']}</title>
+		<meta name="description" content="#{resources['label.global.texto1']}" />
+		<meta name="Cache-Control" content="max-age=31536000" />
+		<link rel="canonical" href="/" />
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="robots" content="index, follow" />
+		<meta property="og:title" content="Download video - Download MP3 | Gettvid.com" />
+		<meta property="og:description" content="#{resources['label.global.texto1']}" />
+		<meta property="og:image" content="https://gettvid.com/statics/image/icon.svg" />
+		<link rel="alternate" href="index.html" hreflang="x-default" />
+		<link rel="alternate" href="index.html" hreflang="en" />
+		<link rel="alternate" href="en" hreflang="en" />
+		<link rel="alternate" href="pt" hreflang="pt" />
+		<link rel="icon" type="image/png" href="https://gettvid.com/statics/image/icon.svg" />
+		<link rel="apple-touch-icon-precomposed" sizes="57x57" href="statics/image/apple-touch-icon-57x57.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="statics/image/apple-touch-icon-114x114.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="statics/image/apple-touch-icon-72x72.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="statics/image/apple-touch-icon-144x144.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="60x60" href="statics/image/apple-touch-icon-60x60.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="120x120" href="statics/image/apple-touch-icon-120x120.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="76x76" href="statics/image/apple-touch-icon-76x76.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="152x152" href="statics/image/apple-touch-icon-152x152.png" />
+		<meta name="application-name" content="Gettvid" />
+		<link rel="stylesheet" type="text/css" href="statics/css/style-lg.css" />
+	</h:head>
+	<h:body>
+	
+		<header>
+		<div class="main_nav">
+			<a class="logo" href="/">  <span> Gettvid.com</span>
+			</a>
+		</div>
+	</header>
+	<ui:insert name="corpo" />	
+	<footer>
+		<div class="copyright">
+			<ul class="flex flex-a-i-center">
+				<li><a href="mailto:gettvid@gmail.com">gettvid@gmail.com</a></li>
+			</ul>
+			<p class="mag0">© 2021 gettvid.com</p>
+		</div>
+	</footer>
+	<script type="text/javascript" src="statics/js/jquery.min.js"></script>
+    <script src="statics/js/reconnecting-websocket.min.js"></script>
+	<script>
+	//<![CDATA[
+	 //document.getElementById('id-panel-footer').style.display = 'none';
+	  	
+ 	  var wsocketHost = null;	
+ 	  var terminou = false;
+	  function connect() {         
+		//wsocketHost = new ReconnectingWebSocket("ws://gettvid.local:8080/YoutubeServer", null, {debug: true, reconnectInterval: 3000});
+		wsocketHost = new ReconnectingWebSocket("wss://gettvid.com/YoutubeServer", null, {debug: true, reconnectInterval: 3000});
+		wsocketHost.onmessage = onMessage;  
+		wsocketHost.onopen = onOpen;  
+	  }
+
+	  var buttonClick = function(){
+		  if (wsocketHost.readyState === WebSocket.CLOSED) {
+			   connect();
+		  }
+		  if(document.getElementById('id-input-host').value && validateUrl(document.getElementById('id-input-host').value)){
+			  document.getElementById('id-panel-footer').style.display = 'block';
+			  document.getElementById('id-panel-button-download').innerHTML ='';
+			  document.getElementById('id-panel-global-loading').style.display = 'block';
+			  document.getElementById('id-panel-loading').setAttribute("value", 0);
+			  document.getElementById('id-panel-loading').innerHTML = '0';
+			  document.getElementById("id-button-youtube").disabled = true;
+			  document.getElementById("id-button-youtube").innerHTML = "#{resources['label.global.aguarde']}";
+			  document.getElementById('id-panel-result').innerHTML = '';
+			  document.getElementById('id-panel-result-now').innerHTML = '';
+			  document.getElementById('id-button-youtube').onclick = null;
+			  
+			  wsocketHost.send(JSON.stringify({
+				    ipExterno:'',
+				    tipo:document.querySelector('input[name="id-tipo"]:checked').value,
+				  	host: document.getElementById('id-input-host').value	
+			  }));
+			  let hostApi = compositeApi(document.getElementById('id-input-host').value,document.querySelector('input[name="id-tipo"]:checked').value);
+			  let link = "<a href='"+hostApi+"' target='blank'>"+hostApi+"</a>";
+		  }else{
+			alert("#{resources['label.global.informeurl']}")
+		  }	  
+	  }
+	  function onMessage(evt) {
+		  
+		  let obj = JSON.parse(evt.data);
+		  
+		  if(obj.resultado !== 'FIM'){
+			  if(obj.resultado.includes('download')){
+			  	document.getElementById('id-panel-result-now').innerHTML = obj.resultado;
+			  	let porcentagem = obj.resultado.substring(obj.resultado.indexOf("]")+1, obj.resultado.indexOf("%"));
+			  	let porcentagem_number = obj.resultado.substring(obj.resultado.indexOf("]")+1, obj.resultado.indexOf("of"));
+			  	if(!isNaN(parseFloat(porcentagem))){
+			  		document.getElementById('id-panel-loading').value =  parseFloat(porcentagem);
+			  		document.getElementById('id-panel-loading').innerHTML = porcentagem+'%';
+			  	}	
+			  }else if(obj.resultado.includes('button-down')){
+				  let url = obj.resultado.substring(obj.resultado.indexOf(":")+1, obj.resultado.length);
+				  if(!url.includes('http')){
+					 url = '/download/youtube?file='+url;	
+				  }
+				  document.getElementById('id-panel-button-download').innerHTML = '';
+				  if(document.querySelector('input[name="id-tipo"]:checked').value === 'MP3'){
+				  	 document.getElementById('id-panel-button-download').innerHTML = '<a href="'+url+'" onclick="window.open(\'https://nettools.live\',\'parent\');" class="btn btn-success">Download MP3</a>';
+				  }else{ 
+					 document.getElementById('id-panel-button-download').innerHTML = '<a href="'+url+'" class="btn btn-success" onclick="window.open(\'https://nettools.live\',\'parent\')">Download Video</a>';
+				  }	
+			  }else if(obj.resultado.includes('button-url-down')){
+				  let url = obj.resultado.substring(obj.resultado.indexOf(":")+1, obj.resultado.length);
+				  if(!url.includes('http')){
+					 url = '/download/youtube?file='+url;	
+				  }
+				  document.getElementById('id-panel-button-download').innerHTML += '<a href="'+url+'" style="margin-left:5px;margin-top:5px" target=\'parent\' class="btn btn-success">Download Video</a>';
+
+			  }else if(obj.resultado.includes('button-error')){
+				  document.getElementById('id-panel-button-download').innerHTML = '<span class="btn btn-red">#{resources["label.global.errodownloadvideo"]}</span>';
+
+			  }else{
+				  if (obj.resultado !== '' && obj.resultado.trim().length > 0){
+					  document.getElementById('id-panel-result').innerHTML += obj.resultado +'<br />';
+				  }	  
+			  }	
+		  }else{
+			  document.getElementById("id-button-youtube").disabled = false;
+			  document.getElementById("id-button-youtube").innerHTML = "#{resources['label.global.botaopesquisaroutro']}";
+			  document.getElementById('id-button-youtube').onclick = buttonClick;
+
+			  
+			  document.getElementById('id-input-host').value = '';
+			  document.getElementById('id-panel-global-loading').style.display = 'none';
+			  
+		  }
+		  
+	  }
+	  
+	  function onOpen(evt) {   
+		            
+	  }
+	  
+	  function validateUrl(value) {
+		  return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(value);
+	  }
+
+	  var searchHistory = function(host,tipo){
+		  document.getElementById('id-input-host').value = host;
+		  setCheckedValueOfRadioButtonGroup(document.getElementById('id-tipo'),tipo);
+		  buttonClick();	
+	  }	  
+
+	  var compositeApi = function(host,tipo){
+			let hostApi = "/api/tools/videodownload?host= "+host+"&amp;tipo="+tipo;
+			return hostApi;
+	  }
+
+	  $('#idFormYoutube').on('keyup keypress', function(e) {
+		  var keyCode = e.keyCode || e.which;
+		  if (keyCode === 13) { 
+			document.getElementById('id-button-youtube').click();
+		    return false;
+		  }
+		}); 
+
+	  function youtube(){
+		  
+	  }
+
+	  function setCheckedValueOfRadioButtonGroup(vRadioObj, vValue) {
+		    var radios = document.getElementsByName(vRadioObj.id);
+		    for (var j = 0; j < radios.length; j++) {
+		        if (radios[j].value == vValue) {
+		            radios[j].checked = true;
+		            break;
+		        }
+		    }
+		}
+	  connect();
+	  
+	//]]>
+	</script>
+		<script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-2B5PMT0RLZ"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		  gtag('config', 'G-2B5PMT0RLZ');
+		</script>
+	
+	</h:body>
+</f:view>
+</html>
