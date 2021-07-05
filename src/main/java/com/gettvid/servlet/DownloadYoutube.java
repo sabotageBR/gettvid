@@ -21,7 +21,9 @@ public class DownloadYoutube extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		File arquivo = null;
 		try {
+			
 			String nomeArquivo = req.getParameter("file");
+			System.out.println(":::Fazendo download do arquivo:"+nomeArquivo);
 			arquivo = new File(nomeArquivo);
 			if(arquivo.exists()) {
 	            resp.setContentType("application/force-download");
