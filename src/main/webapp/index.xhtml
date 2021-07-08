@@ -3,10 +3,10 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:itm="http://java.sun.com/jsf/composite/components"
-	template="/WEB-INF/templates/default_index.xhtml">
+	xmlns:itm="http://java.sun.com/jsf/composite/components">
 
-	<ui:define name="corpo">
+		
+	
 		<div class="container">
 			<div class="ftco-section center" id="convert">
 				<h1 class="title">#{resources['label.global.titulo']}</h1>
@@ -68,8 +68,15 @@
 					<br />
 					<center>
 						<div id="id-panel-button-download"></div>
+						
 					</center>
 				</h:form>
+				<center>
+					<div id="id-panel-donate" style="display: none">
+					   <form action="https://www.paypal.com/donate" method="post" target="_top"><input type="hidden" name="business" value="UQKE3PMGTTLXN"/><input type="hidden" name="no_recurring" value="0"/><input type="hidden" name="item_name" value="Buy me a coffee"/><input type="hidden" name="currency_code" value="USD"/><input type="image" src="https://gettvid.com/statics/image/buy-coffe.svg" width="200px" height="56px" border="0" name="submit" title="Buy me a coffee!" alt="Buy me a coffee!"/></form>
+					   <br />
+					</div>
+				</center>
 				<div id="search-result"></div>
 			</div>
 			<div class="ftco-section center" style="padding: 00px 00px 10px;">
@@ -363,6 +370,4 @@
 				</section>
 			</div>
 		</div>
-	</ui:define>
 </ui:composition>
-

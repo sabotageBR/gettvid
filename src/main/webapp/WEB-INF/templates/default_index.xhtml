@@ -3,25 +3,28 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	lang="#{linguagem}" manifest="https://gettvid.com/gettvid.appcache">
 
 <f:view contentType="text/html">
 	<h:head>
 		<title>#{resources['label.global.tituloglobal']}</title>
 		<meta name="description" content="#{resources['label.global.texto1']}" />
-		<meta name="Cache-Control" content="max-age=31536000" />
-		<link rel="canonical" href="/" />
+		<meta name="Cache-Control" content="max-age=3600" />
+		<meta name="keywords" content="youtube downloader,video downloader,download youtube mp3,descargar videos de youtube,descargar videos,youtube to mo3,convertidor mp4,youtube mp3 download,youtube mp3 downloader,convert youtube video to mp3,download youtube videos mp3,youtube mp4,dailymotion,twitter video downloader,youtube mp3,baixar video do youtube,baixar video youtube,conversor youtube,converter youtube para mp3,baixar mp3,download video instagram,convertidor mp3,convertidor youtube mp3,convertidor de youtube a mp3,sendvid download,sendvid video downloader,baixar vídeos do twitter,baixar música,converta vídeos do youtube,youtube to mp3 converter,permite baixar vídeos,baixe vídeos,baixar vídeo do instagram,yt to mp3,youtube converter mp4,yt mp3,youtube mp3 converter,online video downloader,youtube downloader online,youtube video downloader for pc,download videos youtube,download on line youtube,youtube video downloader online,baixar vídeo do youtube para celular,programa para baixar vídeos do youtube,free youtube download" />
+		
+		<link rel="canonical" href="https://gettvid.com/#{linguagem}" />
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="robots" content="index, follow" />
-		<meta property="og:title" content="Download video - Download MP3 | Gettvid.com" />
+		<meta property="og:title" content="Youtube Downloader | Gettvid.com" />
 		<meta property="og:description" content="#{resources['label.global.texto1']}" />
 		<meta property="og:image" content="https://gettvid.com/statics/image/icon.svg" />
-		<link rel="alternate" href="index.html" hreflang="x-default" />
-		<link rel="alternate" href="index.html" hreflang="en" />
-		<link rel="alternate" href="en" hreflang="en" />
-		<link rel="alternate" href="pt" hreflang="pt" />
+		
+		<link rel="alternate" href="https://gettvid.com/en" hreflang="en" />
+		<link rel="alternate" href="https://gettvid.com/pt" hreflang="pt" />
+		
 		<link rel="icon" type="image/png" href="https://gettvid.com/statics/image/icon.svg" />
 		<link rel="apple-touch-icon-precomposed" sizes="57x57" href="statics/image/apple-touch-icon-57x57.png" />
 		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="statics/image/apple-touch-icon-114x114.png" />
@@ -31,7 +34,9 @@
 		<link rel="apple-touch-icon-precomposed" sizes="120x120" href="statics/image/apple-touch-icon-120x120.png" />
 		<link rel="apple-touch-icon-precomposed" sizes="76x76" href="statics/image/apple-touch-icon-76x76.png" />
 		<link rel="apple-touch-icon-precomposed" sizes="152x152" href="statics/image/apple-touch-icon-152x152.png" />
+		
 		<meta name="application-name" content="Gettvid" />
+		
 		<link rel="stylesheet" type="text/css" href="statics/css/style-lg.css" />
 	</h:head>
 	<h:body>
@@ -40,11 +45,71 @@
 		<div class="main_nav">
 			<a class="logo" href="/">  <span> Gettvid.com</span>
 			</a>
+			<div class="language">
+				<form action="https://www.paypal.com/donate" method="post" target="_top">
+					<input type="hidden" name="business" value="UQKE3PMGTTLXN" />
+					<input type="hidden" name="no_recurring" value="0" />
+					<input type="hidden" name="item_name" value="Buy me a coffee" />
+					<input type="hidden" name="currency_code" value="USD" />
+					<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+					<img alt="" border="0" src="https://www.paypal.com/en_BR/i/scr/pixel.gif" width="1" height="1" />
+				</form>
+				
+			</div>
 		</div>
 	</header>
 	<ui:insert name="corpo" />	
 	<footer>
 		<div class="copyright">
+			<ul style="font-size: 9px">
+					<li><a href="https://gettvid.com">youtube downloader</a>
+						<a href="https://gettvid.com">video downloader</a>
+						<a href="https://gettvid.com">download youtube mp3</a>
+						<a href="https://gettvid.com">descargar videos de youtube</a>
+						<a href="https://gettvid.com">descargar videos</a>
+						<a href="https://gettvid.com">youtube to mo3</a>
+						<a href="https://gettvid.com">convertidor mp4</a>
+						<a href="https://gettvid.com">youtube mp3 download</a>
+						<a href="https://gettvid.com">youtube mp3 downloader</a>
+						<a href="https://gettvid.com">convert youtube video to mp3</a>
+						<a href="https://gettvid.com">download youtube videos mp3</a>
+						<a href="https://gettvid.com">youtube mp4</a>
+						<a href="https://gettvid.com">dailymotion</a>
+						<a href="https://gettvid.com">twitter video downloader</a>
+						<a href="https://gettvid.com">youtube mp3</a>
+						<a href="https://gettvid.com">baixar video do youtube</a>
+						<a href="https://gettvid.com">baixar video youtube,conversor youtube</a>
+						<a href="https://gettvid.com">converter youtube para mp3</a>
+						<a href="https://gettvid.com">baixar mp3</a>
+						<a href="https://gettvid.com">download video instagram</a>
+						<a href="https://gettvid.com">convertidor mp3</a>
+						<a href="https://gettvid.com">convertidor youtube mp3</a>
+						<a href="https://gettvid.com">convertidor de youtube a mp3</a>
+						<a href="https://gettvid.com">sendvid video downloader</a>
+						<a href="https://gettvid.com">sendvid download</a>
+						
+						<a href="https://gettvid.com">baixar vídeos do twitter</a>
+						<a href="https://gettvid.com">baixar música</a>
+						<a href="https://gettvid.com">converta vídeos do youtube</a>
+						<a href="https://gettvid.com">youtube to mp3 converter</a>
+						<a href="https://gettvid.com">permite baixar vídeos</a>
+						<a href="https://gettvid.com">baixe vídeos</a>
+						<a href="https://gettvid.com">baixar vídeo do instagram</a>
+						<a href="https://gettvid.com">yt to mp3</a>
+						<a href="https://gettvid.com">youtube converter mp4</a>
+						<a href="https://gettvid.com">yt mp3</a>
+						<a href="https://gettvid.com">youtube mp3 converter</a>
+						<a href="https://gettvid.com">online video downloader</a>
+						<a href="https://gettvid.com">youtube downloader online</a>
+						<a href="https://gettvid.com">youtube video downloader for pc</a>
+						<a href="https://gettvid.com">download videos youtube</a>
+						<a href="https://gettvid.com">download on line youtube</a>
+						<a href="https://gettvid.com">youtube video downloader online</a>
+						<a href="https://gettvid.com">baixar vídeo do youtube para celular</a>
+						<a href="https://gettvid.com">programa para baixar vídeos do youtube</a>
+						<a href="https://gettvid.com">free youtube download</a>
+						</li>
+				</ul>
 			<ul class="flex flex-a-i-center">
 				<li><a href="mailto:gettvid@gmail.com">gettvid@gmail.com</a></li>
 			</ul>
@@ -81,6 +146,7 @@
 			  document.getElementById('id-panel-result').innerHTML = '';
 			  document.getElementById('id-panel-result-now').innerHTML = '';
 			  document.getElementById('id-button-youtube').onclick = null;
+			  document.getElementById('id-panel-donate').style.display = 'none';
 			  
 			  wsocketHost.send(JSON.stringify({
 				    ipExterno:'',
@@ -117,13 +183,14 @@
 				  }else{ 
 					 document.getElementById('id-panel-button-download').innerHTML = '<a href="'+url+'" class="btn btn-success" onclick="window.open(\'https://nettools.live\',\'parent\')">Download Video</a>';
 				  }	
+				  document.getElementById('id-panel-donate').style.display = 'block';
 			  }else if(obj.resultado.includes('button-url-down')){
 				  let url = obj.resultado.substring(obj.resultado.indexOf(":")+1, obj.resultado.length);
 				  if(!url.includes('http')){
 					 url = '/download/youtube?file='+url;	
 				  }
 				  document.getElementById('id-panel-button-download').innerHTML += '<a href="'+url+'" style="margin-left:5px;margin-top:5px" target=\'parent\' class="btn btn-success">Download Video</a>';
-
+				  document.getElementById('id-panel-donate').style.display = 'block';
 			  }else if(obj.resultado.includes('button-error')){
 				  document.getElementById('id-panel-button-download').innerHTML = '<span class="btn btn-red">#{resources["label.global.errodownloadvideo"]}</span>';
 

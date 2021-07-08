@@ -5,8 +5,8 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 
 @URLMappings(mappings={
 		
-		@URLMapping(id = "pt", pattern = "/pt", viewId = "/index.xhtml"),
-		@URLMapping(id = "en", pattern = "/en", viewId = "/index.xhtml")
+		@URLMapping(id = "pt", pattern = "/pt", viewId = "/index-pt.xhtml"),
+		@URLMapping(id = "en", pattern = "/en", viewId = "/index-en.xhtml")
 		  
 		})
 public class GettvidView {
