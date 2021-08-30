@@ -1,11 +1,14 @@
 package com.gettvid.to;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Locale;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
+import com.gettvid.api.entity.Video;
 import com.gettvid.enums.TypeVideoDownload;
+import com.gettvid.util.UtilCollection;
 import com.gettvid.util.UtilString;
 
 public class YoutubeTO extends NettoolsTO{
@@ -16,7 +19,10 @@ public class YoutubeTO extends NettoolsTO{
 	private String resultado;
 	private LocalDateTime dateTime;
 	private TypeVideoDownload tipo;
+	private List<Video> lastVideos;
+	private List<Video> topVideos;
 	
+	private UtilCollection<Video> utilCollection = new UtilCollection<Video>();
 	public YoutubeTO() {
 		
 	}
@@ -29,6 +35,13 @@ public class YoutubeTO extends NettoolsTO{
 		setHost(host);
 		setDateTime(dateTime);
 		setTipo(tipo);
+	}
+	
+	public YoutubeTO(List<Video> lastVideos,List<Video> topVideos) {
+		setLastVideos(lastVideos);
+		setTopVideos(topVideos);
+		utilCollection.ordenarListaDesc(getTopVideos(),"countDown");
+		utilCollection.ordenarListaDesc(getLastVideos(),"dateAdd");
 	}
 	
 	public String getHost() {
@@ -76,6 +89,17 @@ public class YoutubeTO extends NettoolsTO{
 	public void setTipo(TypeVideoDownload tipo) {
 		this.tipo = tipo;
 	}
-	
+	public List<Video> getLastVideos() {
+		return lastVideos;
+	}
+	public void setLastVideos(List<Video> lastVideos) {
+		this.lastVideos = lastVideos;
+	}
+	public List<Video> getTopVideos() {
+		return topVideos;
+	}
+	public void setTopVideos(List<Video> topVideos) {
+		this.topVideos = topVideos;
+	}
 	
 }

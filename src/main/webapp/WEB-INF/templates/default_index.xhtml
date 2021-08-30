@@ -46,14 +46,6 @@
 			<a class="logo" href="/">  <span> Gettvid.com</span>
 			</a>
 			<div class="language">
-				<form action="https://www.paypal.com/donate" method="post" target="_top">
-					<input type="hidden" name="business" value="UQKE3PMGTTLXN" />
-					<input type="hidden" name="no_recurring" value="0" />
-					<input type="hidden" name="item_name" value="Buy me a coffee" />
-					<input type="hidden" name="currency_code" value="USD" />
-					<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-					<img alt="Buy me a Coffe" border="0" src="https://www.paypal.com/en_BR/i/scr/pixel.gif" width="1" height="1" />
-				</form>
 				
 			</div>
 		</div>
@@ -126,7 +118,7 @@
  	  var terminou = false;
 	  function connect() {         
 		//wsocketHost = new ReconnectingWebSocket("ws://gettvid.local:8080/YoutubeServer", null, {debug: true, reconnectInterval: 3000});
-		wsocketHost = new ReconnectingWebSocket("wss://gettvid.com/YoutubeServer", null, {debug: true, reconnectInterval: 3000});
+		wsocketHost = new ReconnectingWebSocket("wss://gettvid.com/YoutubeServer", null, {debug: true, reconnectInterval: 600000});
 		wsocketHost.onmessage = onMessage;  
 		wsocketHost.onopen = onOpen;  
 	  }
@@ -162,54 +154,75 @@
 	  function onMessage(evt) {
 		  
 		  let obj = JSON.parse(evt.data);
-		  
-		  if(obj.resultado !== 'FIM'){
-			  if(obj.resultado.includes('download')){
-			  	document.getElementById('id-panel-result-now').innerHTML = obj.resultado;
-			  	let porcentagem = obj.resultado.substring(obj.resultado.indexOf("]")+1, obj.resultado.indexOf("%"));
-			  	let porcentagem_number = obj.resultado.substring(obj.resultado.indexOf("]")+1, obj.resultado.indexOf("of"));
-			  	if(!isNaN(parseFloat(porcentagem))){
-			  		document.getElementById('id-panel-loading').value =  parseFloat(porcentagem);
-			  		document.getElementById('id-panel-loading').innerHTML = porcentagem+'%';
-			  	}	
-			  }else if(obj.resultado.includes('button-down')){
-				  let url = obj.resultado.substring(obj.resultado.indexOf(":")+1, obj.resultado.length);
-				  if(!url.includes('http')){
-					 url = '/download/youtube?file='+url;	
-				  }
-				  document.getElementById('id-panel-button-download').innerHTML = '';
-				  if(document.querySelector('input[name="id-tipo"]:checked').value === 'MP3'){
-				  	 document.getElementById('id-panel-button-download').innerHTML = '<a href="'+url+'" onclick="window.open(\'https://nettools.live\',\'parent\');" class="btn btn-success">Download MP3</a>';
-				  }else{ 
-					 document.getElementById('id-panel-button-download').innerHTML = '<a href="'+url+'" class="btn btn-success" onclick="window.open(\'https://nettools.live\',\'parent\')">Download Video</a>';
+		  console.log(obj);
+		  if(obj.lastVideos && obj.topVideos){
+			  console.log(obj);	
+			  document.getElementById('id-div-videos').innerHTML = '';
+			  
+			  obj.topVideos.forEach(function(value, i) {
+				  document.getElementById('id-div-videos').innerHTML += '<li><div class="post-image bg1"><iframe width="100%" height="100%" src="'+value.urlEmbed+'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="post-content"><a href="#" onclick="javascript:searchDownload(\''+value.url+'\')"><img src="https://gettvid.com/statics/image/icon.svg" width="15px" heigth="15px" title="'+value.countDown+'" /> Download</a></div></li>';
+			  });
+
+			  document.getElementById('id-div-last-videos').innerHTML = '';
+			  obj.lastVideos.forEach(function(value, i) {
+				  document.getElementById('id-div-last-videos').innerHTML += '<li><div class="post-image bg1"><iframe width="100%" height="100%" src="'+value.urlEmbed+'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="post-content"><a href="#" onclick="javascript:searchDownload(\''+value.url+'\')"><img src="https://gettvid.com/statics/image/icon.svg" width="15px" heigth="15px" title="'+value.countDown+'"/> Download</a></div></li>';
+			  });
+				
+		   }else{
+			  if(obj.resultado !== 'FIM'){
+				  if(obj.resultado.includes('download')){
+				  	document.getElementById('id-panel-result-now').innerHTML = obj.resultado;
+				  	let porcentagem = obj.resultado.substring(obj.resultado.indexOf("]")+1, obj.resultado.indexOf("%"));
+				  	let porcentagem_number = obj.resultado.substring(obj.resultado.indexOf("]")+1, obj.resultado.indexOf("of"));
+				  	if(!isNaN(parseFloat(porcentagem))){
+				  		document.getElementById('id-panel-loading').value =  parseFloat(porcentagem);
+				  		document.getElementById('id-panel-loading').innerHTML = porcentagem+'%';
+				  	}	
+				  }else if(obj.resultado.includes('button-down')){
+					  let url = obj.resultado.substring(obj.resultado.indexOf(":")+1, obj.resultado.length);
+					  if(!url.includes('http')){
+						 url = '/download/youtube?file='+url;	
+					  }
+					  document.getElementById('id-panel-button-download').innerHTML = '';
+					  if(document.querySelector('input[name="id-tipo"]:checked').value === 'MP3'){
+					  	 document.getElementById('id-panel-button-download').innerHTML = '<a href="'+url+'" onclick="window.open(\'https://nettools.live\',\'parent\');" class="btn btn-success">Download MP3</a>';
+					  }else{ 
+						 document.getElementById('id-panel-button-download').innerHTML = '<a href="'+url+'" class="btn btn-success" onclick="window.open(\'https://nettools.live\',\'parent\')">Download Video</a>';
+					  }	
+					  document.getElementById('id-panel-donate').style.display = 'block';
+				  }else if(obj.resultado.includes('button-url-down')){
+					  let url = obj.resultado.substring(obj.resultado.indexOf(":")+1, obj.resultado.length);
+					  if(!url.includes('http')){
+						 url = '/download/youtube?file='+url;	
+					  }
+					  document.getElementById('id-panel-button-download').innerHTML += '<a href="'+url+'" style="margin-left:5px;margin-top:5px" target=\'parent\' class="btn btn-success">Download Video</a>';
+					  document.getElementById('id-panel-donate').style.display = 'block';
+				  }else if(obj.resultado.includes('button-error')){
+					  document.getElementById('id-panel-button-download').innerHTML = '<span class="btn btn-red">#{resources["label.global.errodownloadvideo"]}</span>';
+	
+				  }else{
+					  if (obj.resultado !== '' && obj.resultado.trim().length > 0){
+						  document.getElementById('id-panel-result').innerHTML += obj.resultado +'<br />';
+					  }	  
 				  }	
-				  document.getElementById('id-panel-donate').style.display = 'block';
-			  }else if(obj.resultado.includes('button-url-down')){
-				  let url = obj.resultado.substring(obj.resultado.indexOf(":")+1, obj.resultado.length);
-				  if(!url.includes('http')){
-					 url = '/download/youtube?file='+url;	
-				  }
-				  document.getElementById('id-panel-button-download').innerHTML += '<a href="'+url+'" style="margin-left:5px;margin-top:5px" target=\'parent\' class="btn btn-success">Download Video</a>';
-				  document.getElementById('id-panel-donate').style.display = 'block';
-			  }else if(obj.resultado.includes('button-error')){
-				  document.getElementById('id-panel-button-download').innerHTML = '<span class="btn btn-red">#{resources["label.global.errodownloadvideo"]}</span>';
-
 			  }else{
-				  if (obj.resultado !== '' && obj.resultado.trim().length > 0){
-					  document.getElementById('id-panel-result').innerHTML += obj.resultado +'<br />';
-				  }	  
-			  }	
-		  }else{
-			  document.getElementById("id-button-youtube").disabled = false;
-			  document.getElementById("id-button-youtube").innerHTML = "#{resources['label.global.botaopesquisaroutro']}";
-			  document.getElementById('id-button-youtube').onclick = buttonClick;
-
-			  
-			  document.getElementById('id-input-host').value = '';
-			  document.getElementById('id-panel-global-loading').style.display = 'none';
-			  
-		  }
+				  document.getElementById("id-button-youtube").disabled = false;
+				  document.getElementById("id-button-youtube").innerHTML = "#{resources['label.global.botaopesquisaroutro']}";
+				  document.getElementById('id-button-youtube').onclick = buttonClick;
+	
+				  
+				  document.getElementById('id-input-host').value = '';
+				  document.getElementById('id-panel-global-loading').style.display = 'none';
+				  
+			  }
+		   }  
 		  
+	  }
+
+	  var searchDownload = function(url){
+			console.log(url);
+			document.getElementById('id-input-host').value = url;
+			document.getElementById('id-button-youtube').click();
 	  }
 	  
 	  function onOpen(evt) {   
@@ -243,6 +256,8 @@
 		  
 	  }
 
+	  
+
 	  function setCheckedValueOfRadioButtonGroup(vRadioObj, vValue) {
 		    var radios = document.getElementsByName(vRadioObj.id);
 		    for (var j = 0; j < radios.length; j++) {
@@ -253,8 +268,18 @@
 		    }
 		}
 	  connect();
+
+
+	  $('#search-form').on('keyup keypress', function(e) {
+		  var keyCode = e.keyCode || e.which;
+		  if (keyCode === 13) { 
+			document.getElementById('id-button-youtube').click();
+		    return false;
+		  }
+		}); 
 	  
 	//]]>
+	
 	</script>
 		<script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-2B5PMT0RLZ"></script>
 		<script>

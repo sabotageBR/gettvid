@@ -18,7 +18,7 @@ FROM evandromoura/wildfly:nettools-2.0
 	
 	#CONEXAO
 	COPY kubernetes/standalone-full-ha.xml $JBOSS_HOME/standalone/configuration/standalone-full-ha.xml
-	COPY kubernetes/postgresql-8.4-701.jdbc3.jar $JBOSS_HOME/standalone/deployments/
+	COPY kubernetes/postgresql-42.2.23.jre6.jar $JBOSS_HOME/standalone/deployments/
 
 	#BUILD
 	COPY /target/gettvid.war $JBOSS_HOME/standalone/deployments/
