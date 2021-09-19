@@ -36,7 +36,7 @@ public class YoutubeService implements Serializable{
 		try {
 			Runtime rt = Runtime.getRuntime();
 			String command = "";
-			String nomeArquivo = "gettvid-video-"+UUID.randomUUID().toString();
+			String nomeArquivo = "gettvid-com-"+UUID.randomUUID().toString();
 			String nomeArquivoCompleto = nomeArquivo+".mp4";
 			String nomeFinal = "";
 			String login = comporUsername(youtube.getHost());
@@ -123,7 +123,7 @@ public class YoutubeService implements Serializable{
 			session.getBasicRemote().sendText(gson.toJson(new YoutubeTO(youtube.getHost(), "Gettvid.com: Init Converter...")));
 			Runtime rt = Runtime.getRuntime();
 			String command = "";
-			String nomeArquivo = "gettvid-video-"+UUID.randomUUID().toString();
+			String nomeArquivo = "gettvid-com-"+UUID.randomUUID().toString();
 			String nomeArquivoCompleto = nomeArquivo+".mp4";
 			String nomeFinal = "";
 			String login = comporUsername(youtube.getHost());
@@ -164,6 +164,52 @@ public class YoutubeService implements Serializable{
 				//e.printStackTrace();
 			}
 		}
+	}
+	
+	
+	
+	
+	public String executarAPI(YoutubeTO youtube) {
+		Process proc = null;
+		BufferedReader stdInput = null;
+		BufferedReader stdError = null;
+		String s = null;
+		boolean mkv = false;
+		StringBuilder sb = new StringBuilder();
+		Gson gson = new Gson();
+		try {
+			Runtime rt = Runtime.getRuntime();
+			String command = "";
+			String nomeArquivo = "gettvid-com-"+UUID.randomUUID().toString();
+			String nomeArquivoCompleto = nomeArquivo+".mp4";
+			String nomeFinal = "";
+			String login = comporUsername(youtube.getHost());
+			command = String.format("youtube-dl %s -f best -o %s -g %s",login, nomeArquivoCompleto, youtube.getHost());
+			System.out.println(command);
+			proc = rt.exec(command);
+			stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+			stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
+			while ((s = stdInput.readLine()) != null) {
+				if(s.contains("http")) {
+					sb.append(s);
+				}	
+				
+			}
+		} catch (Exception e) {
+			//e.printStackTrace();
+		} finally {
+			try {
+				Field f = proc.getClass().getDeclaredField("pid");
+				f.setAccessible(true);
+				stdInput.close();
+				stdError.close();
+				proc.destroy();
+				proc.destroyForcibly();
+			} catch (Exception e) {
+				//e.printStackTrace();
+			}
+		}
+		return sb.toString();
 	}
 	
 	private String comporUsername(String host) {

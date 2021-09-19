@@ -47,7 +47,7 @@ public class YoutubeURLThread extends Thread{
 			session.getBasicRemote().sendText(gson.toJson(new YoutubeTO(youtube.getHost(), "Gettvid.com: Init Converter...")));
 			Runtime rt = Runtime.getRuntime();
 			String command = "";
-			String nomeArquivo = "gettvid-video-"+UUID.randomUUID().toString();
+			String nomeArquivo = "gettvid-com-"+UUID.randomUUID().toString();
 			String nomeArquivoCompleto = nomeArquivo+".mp4";
 			String nomeFinal = "";
 			String login = comporUsername(youtube.getHost());

@@ -76,12 +76,16 @@ public class YoutubeTO extends NettoolsTO{
 	}
 	public String getDateTimeOrder() {
 		UtilString us = new UtilString();
-		return String.valueOf(getDateTime().getYear())+
-				us.completaComZerosAEsquerda(String.valueOf(getDateTime().getMonth().getValue()),2)+
-				us.completaComZerosAEsquerda(String.valueOf(getDateTime().getDayOfMonth()),2)+
-				us.completaComZerosAEsquerda(String.valueOf(getDateTime().getHour()),2)+
-				us.completaComZerosAEsquerda(String.valueOf(getDateTime().getMinute()),2)+
-				us.completaComZerosAEsquerda(String.valueOf(getDateTime().getSecond()),2);
+		if(getDateTime() != null) {
+			return String.valueOf(getDateTime().getYear())+
+					us.completaComZerosAEsquerda(String.valueOf(getDateTime().getMonth().getValue()),2)+
+					us.completaComZerosAEsquerda(String.valueOf(getDateTime().getDayOfMonth()),2)+
+					us.completaComZerosAEsquerda(String.valueOf(getDateTime().getHour()),2)+
+					us.completaComZerosAEsquerda(String.valueOf(getDateTime().getMinute()),2)+
+					us.completaComZerosAEsquerda(String.valueOf(getDateTime().getSecond()),2);
+		}else {
+			return "";
+		}
 	}
 	public TypeVideoDownload getTipo() {
 		return tipo;

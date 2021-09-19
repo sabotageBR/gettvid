@@ -116,6 +116,7 @@
 	  	
  	  var wsocketHost = null;	
  	  var terminou = false;
+ 	  var inicio = true;
 	  function connect() {         
 		//wsocketHost = new ReconnectingWebSocket("ws://gettvid.local:8080/YoutubeServer", null, {debug: true, reconnectInterval: 3000});
 		wsocketHost = new ReconnectingWebSocket("wss://gettvid.com/YoutubeServer", null, {debug: true, reconnectInterval: 600000});
@@ -154,19 +155,33 @@
 	  function onMessage(evt) {
 		  
 		  let obj = JSON.parse(evt.data);
-		  console.log(obj);
+		  //console.log(obj);
 		  if(obj.lastVideos && obj.topVideos){
-			  console.log(obj);	
-			  document.getElementById('id-div-videos').innerHTML = '';
-			  
+			  //console.log(obj);	
 			  obj.topVideos.forEach(function(value, i) {
-				  document.getElementById('id-div-videos').innerHTML += '<li><div class="post-image bg1"><iframe width="100%" height="100%" src="'+value.urlEmbed+'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="post-content"><a href="#" onclick="javascript:searchDownload(\''+value.url+'\')"><img src="https://gettvid.com/statics/image/icon.svg" width="15px" heigth="15px" title="'+value.countDown+'" /> Download</a></div></li>';
+				  let idVideo = 'video-top-'+value.id;
+				  if(!document.getElementById(idVideo)){
+					  if(inicio){
+						  document.getElementById('id-div-videos').insertAdjacentHTML('beforeend', '<li id="'+idVideo+'"><div class="post-image bg1"><iframe width="100%" height="100%" src="'+value.urlEmbed+'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="post-content"><a href="#" onclick="javascript:searchDownload(\''+value.url+'\')"><img src="https://gettvid.com/statics/image/icon.svg" width="15px" heigth="15px" title="'+value.countDown+'" /> Download</a></div></li>');
+					  }else{
+						  document.getElementById('id-div-videos').insertAdjacentHTML('afterbegin', '<li id="'+idVideo+'"><div class="post-image bg1"><iframe width="100%" height="100%" src="'+value.urlEmbed+'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="post-content"><a href="#" onclick="javascript:searchDownload(\''+value.url+'\')"><img src="https://gettvid.com/statics/image/icon.svg" width="15px" heigth="15px" title="'+value.countDown+'" /> Download</a></div></li>');
+					  }
+					  
+				  }
 			  });
 
-			  document.getElementById('id-div-last-videos').innerHTML = '';
+			  
 			  obj.lastVideos.forEach(function(value, i) {
-				  document.getElementById('id-div-last-videos').innerHTML += '<li><div class="post-image bg1"><iframe width="100%" height="100%" src="'+value.urlEmbed+'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="post-content"><a href="#" onclick="javascript:searchDownload(\''+value.url+'\')"><img src="https://gettvid.com/statics/image/icon.svg" width="15px" heigth="15px" title="'+value.countDown+'"/> Download</a></div></li>';
+				  let idVideo = 'video-last-'+value.id;
+				  if(!document.getElementById(idVideo)){
+					  if(inicio){
+				  		document.getElementById('id-div-last-videos').insertAdjacentHTML('beforeend','<li id="'+idVideo+'"><div class="post-image bg1"><iframe width="100%" height="100%" src="'+value.urlEmbed+'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="post-content"><a href="#" onclick="javascript:searchDownload(\''+value.url+'\')"><img src="https://gettvid.com/statics/image/icon.svg" width="15px" heigth="15px" title="'+value.countDown+'"/> Download</a></div></li>');
+					  }else{
+						  document.getElementById('id-div-last-videos').insertAdjacentHTML('afterbegin','<li id="'+idVideo+'"><div class="post-image bg1"><iframe width="100%" height="100%" src="'+value.urlEmbed+'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="post-content"><a href="#" onclick="javascript:searchDownload(\''+value.url+'\')"><img src="https://gettvid.com/statics/image/icon.svg" width="15px" heigth="15px" title="'+value.countDown+'"/> Download</a></div></li>');	
+					  }	
+				  } 	
 			  });
+			  inicio = false;
 				
 		   }else{
 			  if(obj.resultado !== 'FIM'){
@@ -281,14 +296,15 @@
 	//]]>
 	
 	</script>
-		<script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-2B5PMT0RLZ"></script>
+		<script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-YMLYQMTG49"></script>
 		<script>
 		  window.dataLayer = window.dataLayer || [];
 		  function gtag(){dataLayer.push(arguments);}
 		  gtag('js', new Date());
-		  gtag('config', 'G-2B5PMT0RLZ');
+		
+		  gtag('config', 'G-YMLYQMTG49');
 		</script>
-	
+		<script async="async" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3327695882262362" crossorigin="anonymous" />
 	</h:body>
 </f:view>
 </html>

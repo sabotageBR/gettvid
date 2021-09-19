@@ -41,7 +41,7 @@ import com.google.gson.Gson;
            @OnOpen
            public void open(Session session) {
         	   try {
-	        	   List<Video> videosLast = videoService.searchLast(1, 6);
+	        	   List<Video> videosLast = videoService.searchLast(1, 12);
 	        	   List<Video> videosTop = videoService.searchTop(1, 6);
 	        	   session.getBasicRemote().sendText(new Gson().toJson(new YoutubeTO(videosLast,videosTop)));	   
         	   }catch(Exception e) {
