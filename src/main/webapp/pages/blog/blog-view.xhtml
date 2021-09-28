@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:itm="http://java.sun.com/jsf/composite/components"
+	template="/WEB-INF/templates/default.xhtml">
+
+	<ui:param name="title" value="#{blogController.to.blog.title}" />
+	<ui:param name="urlName" value="blog/#{blogController.to.blog.urlName}" />
+	<ui:param name="linguagem" value="#{blogController.to.blog.lang}" />
+	<ui:param name="summary" value="#{blogController.to.blog.summary}" />
+	<ui:param name="thumb" value="#{blogController.to.blog.thumb}" />
+	
+	<ui:define name="corpo">
+		<div class="container">
+				<br />
+				<br />
+				<h1 class="title center">#{blogController.to.blog.title}</h1>
+				<h4 class="center"><h:outputText value="#{blogController.to.blog.dateAdd}" converter="LocalDateTimeConverter" /></h4>
+				<br />
+				<br />
+				<h:outputText value="#{blogController.to.blog.text}" escape="false" />			
+				<br />
+				<br />
+				
+				<div class="fb-comments" data-href="https://gettvid.com/blog/#{blogController.to.blog.urlName}" data-width="" data-numposts="10"></div>
+		</div>	
+	</ui:define>
+</ui:composition>

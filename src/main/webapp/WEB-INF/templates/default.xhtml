@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	lang="#{linguagem}" manifest="https://gettvid.com/gettvid.appcache">
+
+<f:view contentType="text/html">
+	<h:head>
+		<title>#{title}</title>
+		<meta name="description" content="#{resources['label.global.texto1']}" />
+		<meta name="Cache-Control" content="max-age=3600" />
+		<meta name="keywords" content="#{title}" />
+		
+		<link rel="canonical" href="https://gettvid.com/#{urlName}" />
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="robots" content="index, follow" />
+		<meta property="og:title" content="#{title}" />
+		<meta property="og:description" content="#{summary}" />
+		<meta property="og:image" content="#{thumb}" />
+		
+		<link rel="alternate" href="https://gettvid.com/#{urlName}" hreflang="#{linguagem}" />
+		
+		<link rel="icon" type="image/png" href="#{thumb}" />
+		
+		<link rel="apple-touch-icon-precomposed" sizes="57x57" href="#{thumb}" />
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="#{thumb}" />
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="#{thumb}" />
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="#{thumb}" />
+		<link rel="apple-touch-icon-precomposed" sizes="60x60" href="#{thumb}" />
+		<link rel="apple-touch-icon-precomposed" sizes="120x120" href="#{thumb}" />
+		<link rel="apple-touch-icon-precomposed" sizes="76x76" href="#{thumb}" />
+		<link rel="apple-touch-icon-precomposed" sizes="152x152" href="#{thumb}" />
+		
+		<meta name="application-name" content="Gettvid" />
+		
+		<link rel="stylesheet" type="text/css" href="https://gettvid.com/statics/css/style-lg.css" />
+	</h:head>
+	<h:body>
+	
+		<header>
+		<div class="main_nav">
+			<a class="logo" href="/">  <span> Gettvid.com</span>
+			</a>
+			<div class="language">
+				
+			</div>
+		</div>
+	</header>
+	<ui:insert name="corpo" />	
+	<footer>
+		<div class="copyright">
+			<ul class="flex flex-a-i-center">
+				<li><a href="mailto:gettvid@gmail.com">gettvid@gmail.com</a></li>
+			</ul>
+			<p class="mag0">© 2021 gettvid.com</p>
+		</div>
+	</footer>
+	
+		<script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-YMLYQMTG49"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		
+		  gtag('config', 'G-YMLYQMTG49');
+		</script>
+		<script async="async" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3327695882262362" crossorigin="anonymous" />
+		<div id="fb-root"></div>
+		<script async="async" defer="defer" crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&amp;version=v11.0&amp;appId=244575427611689&amp;autoLogAppEvents=1" nonce="H66He9sY"></script>
+	</h:body>
+</f:view>
+</html>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:itm="http://java.sun.com/jsf/composite/components"
+	template="/WEB-INF/templates/default.xhtml">
+
+	<ui:param name="linguagem" value="pt" />
+	
+	<ui:define name="corpo">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/trumbowyg.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/ui/trumbowyg.min.css" />
+		
+		<h:form id="search-form" prependId="false">
+		<div class="container">
+			<div class="form-control-small" id="convert">
+			
+				<h:inputHidden value="#{blogController.to.blog.id}" />
+				<label>
+					Title
+				</label>
+				<br />
+				<h:inputText value="#{blogController.to.blog.title}" styleClass="class-search" size="100" />
+				<br />
+				<br />
+				<label>
+					Author
+				</label>
+				<br />
+				<h:inputText value="#{blogController.to.blog.author}" styleClass="class-search" size="50" />
+				<br />
+				<br />
+				<label>
+					Thumb
+				</label>
+				<br />
+				<h:inputText value="#{blogController.to.blog.thumb}" styleClass="class-search" size="100" />
+				<br />
+				<br />
+				<label>
+					lang
+				</label>
+				<br />
+				<h:inputText value="#{blogController.to.blog.lang}" styleClass="class-search" size="10" />
+				<br />
+				<br />
+				<label>
+					URL NAME
+				</label>
+				<br />
+				<h:inputText value="#{blogController.to.blog.urlName}" styleClass="class-search" size="100"/>
+				<br />
+				<br />
+				<label>
+					Summary
+				</label>
+				<br />
+				<h:inputTextarea value="#{blogController.to.blog.summary}" />
+				<br />
+				<br />
+				<h:inputTextarea styleClass="wymeditor" id="editor" value="#{blogController.to.blog.text}" rows="100" />
+				<br />
+				<h:commandButton action="#{blogController.save()}" value="Save" styleClass="btn-red" />
+				
+			</div>
+			
+			</div>
+		</h:form>
+		<script>
+		//<![CDATA[
+			$('#editor').trumbowyg();
+		//]]>
+		</script>
+	</ui:define>
+</ui:composition>

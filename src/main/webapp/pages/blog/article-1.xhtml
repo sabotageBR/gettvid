@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:itm="http://java.sun.com/jsf/composite/components"
+	template="/WEB-INF/templates/default.xhtml">
+
+	<ui:param name="linguagem" value="pt" />
+	
+	<ui:define name="corpo">
+		
+		<div class="container">
+			<div class="ftco-section center" id="convert">
+				<h1 class="title">#{resources['label.article1.titulo']}</h1>
+				<p>Nesse artigo vamos explicar como fazer download de video do youtube no PC</p>
+				<p>Os vídeos são baixados sempre na melhor qualidade possível.</p>
+				<br />
+				<h:form id="search-form" prependId="false" styleClass="search-form relative">
+				
+					<h2>1. Abra o video no youtube, encontre seu video e clique no botão Compartilhar.</h2>
+					<br />
+					<br />
+					<img src="#{request.contextPath}/statics/image/artigo1.1.jpg" />
+					<br />
+					<br />
+					<br />
+					<br />
+					<h2>2. Copie o link do vídeo.</h2>
+					<br />
+					<img src="#{request.contextPath}/statics/image/artigo1.2.jpg" />
+					
+					<h2>3. Clique no botão Download video.</h2>
+
+					<div id="id-panel-footer"
+						style="display: none; background: #000; width: 100%; overflow-x: scroll; overflow-y: scroll; max-height: 150px; text-align: left;">
+						<div
+							style="background: #000; width: 70%; font-size: 10px; font-family: courier; margin-top: 10px; margin-bottom: 10px">
+							<code id="id-panel-result"
+								style="background-color: #000; color: #62cb31; min-height: 200px;">Gettvid.com:
+								Terminal...</code>
+							<code id="id-panel-result-now"
+								style="background-color: #000; color: #62cb31; min-height: 200px;"></code>
+						</div>
+					</div>
+
+					<br />
+					<center>
+						<div id="id-panel-button-download"></div>
+						
+					</center>
+				</h:form>
+			</div>
+			
+		</div>
+	</ui:define>
+</ui:composition>

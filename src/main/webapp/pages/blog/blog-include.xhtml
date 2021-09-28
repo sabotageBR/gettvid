@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:itm="http://java.sun.com/jsf/composite/components">
+
+
+	<h:form id="include-blog" prependId="false">
+		<div class="container">
+			<div class="ftco-section center" id="convert">
+			<h2 class="title">#{resources['label.global.artigos']}</h2>
+			<ul class="listitem items-more">
+				<ui:repeat var="blog" value="#{blogController.to.blogs}">
+					<li>
+						<a href="/blog/#{blog.urlName}" style="text-decoration: none;color: #000">
+							<div class="post-image bg1">
+								<img src="#{blog.thumb}" width="100%" height="100%" alt="#{blog.title}" />
+							</div>
+							<div class="post-content">
+									<h3>#{blog.title}</h3>
+									<p>#{blog.summary}</p> 
+							</div>
+						</a>	
+					</li>
+				
+					
+				</ui:repeat>
+				</ul>
+
+			</div>
+		</div>
+	</h:form>
+</ui:composition>
