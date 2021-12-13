@@ -1,5 +1,6 @@
 package com.gettvid.api.service.video;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -10,7 +11,9 @@ import javax.inject.Inject;
 import com.gettvid.api.dao.AbstractDAO;
 import com.gettvid.api.dao.video.VideoDAO;
 import com.gettvid.api.entity.Video;
+import com.gettvid.api.entity.VideoHistory;
 import com.gettvid.api.service.AbstractService;
+import com.gettvid.api.service.videohistory.VideoHistoryService;
 import com.gettvid.util.UtilURLEmbedVideo;
 
 
@@ -18,6 +21,7 @@ import com.gettvid.util.UtilURLEmbedVideo;
 public class VideoService extends AbstractService<Video> {
 
 	private @Inject VideoDAO videoDAO;
+	private @Inject VideoHistoryService videoHistoryService;
 	
 	@Override
 	public AbstractDAO<Video> getDAO() {
@@ -37,10 +41,17 @@ public class VideoService extends AbstractService<Video> {
 	}
 	
 	public List<Video> searchTop(Integer page, Integer maxRecords){
-		List<Video> videos = videoDAO.searchTop(page, maxRecords);
-		for(Video video:videos) {
-			video.setUrlEmbed(UtilURLEmbedVideo.getUrlEmbed(video.getUrl()));
-		}
+	    List<VideoHistory> histories = videoHistoryService.searchTop(page, maxRecords);	
+	    List<Video> videos = new ArrayList<Video>();
+	    if(histories != null) {
+		    for(VideoHistory videoHistory:histories) {
+		    	Video video = videoDAO.recuperar(videoHistory.getId());
+		    	if(video != null && video.getUrl() != null) {
+			    	video.setUrlEmbed(UtilURLEmbedVideo.getUrlEmbed(video.getUrl()));		
+			    	videos.add(video);
+		    	}	
+		    }
+	    }    
 		return videos;
 	}
 	

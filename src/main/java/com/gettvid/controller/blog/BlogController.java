@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import com.gettvid.api.entity.Blog;
 import com.gettvid.api.service.blog.BlogService;
 import com.gettvid.controller.AbstractController;
-import com.gettvid.session.CustomIdentity;
 import com.gettvid.to.BlogTO;
 
 @Model

@@ -1,5 +1,8 @@
 package com.gettvid.api.dao.video;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -62,7 +65,7 @@ public class VideoDAO extends AbstractDAO<Video> {
 				criteria.select(root).where(
 							getCriteriaBuilder().like(root.get("url"), "%youtu%"),
 							root.get("status").in(StatusVideoEnum.TRANSFER,StatusVideoEnum.FINISH)
-							//getCriteriaBuilder().isNotNull(root.get("urlReturn"))
+							,getCriteriaBuilder().greaterThanOrEqualTo(root.<LocalDateTime>get("dateFinish"), LocalDateTime.now().minus(7, ChronoUnit.DAYS))
 							).orderBy(getCriteriaBuilder().desc(root.get("countDown"))))
 				.setFirstResult(page > 1?Integer.valueOf(page * maxRecords)-1:0).setMaxResults(maxRecords)
 				.getResultList();
