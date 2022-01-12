@@ -1,7 +1,12 @@
 FROM evandromoura/wildfly:nettools-2.0
 
 	LABEL MAINTAINER Evandro Moura <evandromoura@gmail.com>
-
+	
+	USER root
+	RUN  curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
+	RUN	 chmod a+rx /usr/local/bin/youtube-dl
+	RUN  youtube-dl --version
+	
 	USER jboss
 	
 	ARG cliente
