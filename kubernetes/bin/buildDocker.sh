@@ -1,1 +1,1 @@
-docker build --rm -f Dockerfile -t evandromoura/bigstalker:latest .
+mvn clean install && sudo docker build -t evandromoura/gettvid:7.40 . && sudo docker push evandromoura/gettvid:7.40

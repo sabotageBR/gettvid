@@ -41,12 +41,12 @@ public class YoutubeService implements Serializable{
 			String nomeFinal = "";
 			String login = comporUsername(youtube.getHost());
 			if(youtube.getTipo().equals(TypeVideoDownload.VIDEO)) {
-				command = String.format("youtube-dl %s -f best -o %s %s",login, nomeArquivoCompleto, youtube.getHost());
+				command = String.format("yt-dlp %s -f b -o %s %s",login, nomeArquivoCompleto, youtube.getHost());
 			}else if(youtube.getTipo().equals(TypeVideoDownload.MP3)) {
 				nomeArquivoCompleto = nomeArquivo+".mp3";
-				command = String.format("youtube-dl %s -o %s --extract-audio --audio-format mp3 --audio-quality 0 %s",login,nomeArquivoCompleto, youtube.getHost());
+				command = String.format("yt-dlp %s -o %s --extract-audio --audio-format mp3 --audio-quality 0 %s",login,nomeArquivoCompleto, youtube.getHost());
 			}else {
-				command = String.format("youtube-dl %s -o %s %s",login,nomeArquivoCompleto, youtube.getHost());
+				command = String.format("yt-dlp %s -o %s %s",login,nomeArquivoCompleto, youtube.getHost());
 			}
 			System.out.println(command);
 			proc = rt.exec(command);
@@ -128,7 +128,7 @@ public class YoutubeService implements Serializable{
 			String nomeFinal = "";
 			String login = comporUsername(youtube.getHost());
 			session.getBasicRemote().sendText(gson.toJson(new YoutubeTO(youtube.getHost(), "Extracting....")));
-			command = String.format("youtube-dl %s -f best -o %s -g %s",login, nomeArquivoCompleto, youtube.getHost());
+			command = String.format("yt-dlp %s -f b -o %s -g %s",login, nomeArquivoCompleto, youtube.getHost());
 			System.out.println(command);
 			proc = rt.exec(command);
 			stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
@@ -184,7 +184,7 @@ public class YoutubeService implements Serializable{
 			String nomeArquivoCompleto = nomeArquivo+".mp4";
 			String nomeFinal = "";
 			String login = comporUsername(youtube.getHost());
-			command = String.format("youtube-dl %s -f best -o %s -g %s",login, nomeArquivoCompleto, youtube.getHost());
+			command = String.format("yt-dlp %s -f b -o %s -g %s",login, nomeArquivoCompleto, youtube.getHost());
 			System.out.println(command);
 			proc = rt.exec(command);
 			stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
