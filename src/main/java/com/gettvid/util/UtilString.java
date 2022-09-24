@@ -6,6 +6,8 @@ import java.io.StringWriter;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Classe responsável por oferecer serviços para os valores de string
@@ -228,7 +230,7 @@ public class UtilString implements Serializable {
 		  return str;
 		 
 	}
-
+	
 //	/**
 //	 * Retorna uma String substituindo seus caracteres acentuados pelos sem
 //	 * acentos e espacos em branco
@@ -303,5 +305,13 @@ public class UtilString implements Serializable {
 	        }
 	    }
 	    return true;
+	}
+	
+	public static boolean isEmpty(String valor) {
+		boolean retorno = false;
+		if (valor == null || valor.equals("")) {
+			retorno = true;
+		}
+		return retorno;
 	}
 }

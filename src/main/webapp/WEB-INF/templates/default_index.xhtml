@@ -156,7 +156,7 @@
 	  function onMessage(evt) {
 		  
 		  let obj = JSON.parse(evt.data);
-		  //console.log(obj);
+		  console.log(obj);
 		  if(obj.lastVideos && obj.topVideos){
 			  //console.log(obj);	
 			  obj.topVideos.forEach(function(value, i) {
@@ -201,9 +201,9 @@
 					  }
 					  document.getElementById('id-panel-button-download').innerHTML = '';
 					  if(document.querySelector('input[name="id-tipo"]:checked').value === 'MP3'){
-					  	 document.getElementById('id-panel-button-download').innerHTML = '<a href="'+url+'" onclick="window.open(\'https://www.trustedgatetocontent.com/z9bb9h6mp?key=960e02e569b9c198d6ff5a5bf98c3ca8\',\'parent\');" class="btn btn-success">Download MP3</a>';
+					  	 document.getElementById('id-panel-button-download').innerHTML = '<a href="'+url+'" onclick="window.open(\'https://nettools.live\',\'parent\');" class="btn btn-success">Download MP3</a>';
 					  }else{ 
-						 document.getElementById('id-panel-button-download').innerHTML = '<a href="'+url+'" class="btn btn-success" onclick="window.open(\'https://www.trustedgatetocontent.com/z9bb9h6mp?key=960e02e569b9c198d6ff5a5bf98c3ca8\',\'parent\')">Download Video</a>';
+						 document.getElementById('id-panel-button-download').innerHTML = '<a href="'+url+'" class="btn btn-success" onclick="window.open(\'https://nettools.live\',\'parent\')">Download Video</a>';
 					  }	
 					  document.getElementById('id-panel-donate').style.display = 'block';
 				  }else if(obj.resultado.includes('button-url-down')){

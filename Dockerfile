@@ -4,10 +4,16 @@ FROM evandromoura/wildfly:nettools-2.0
 	
 	USER root
 	
+	RUN yum install gcc openssl-devel bzip2-devel libffi-devel zlib-devel xz-devel wget make -y
+	RUN cd /usr/src && wget https://www.python.org/ftp/python/3.7.11/Python-3.7.11.tgz && tar xzf Python-3.7.11.tgz && cd Python-3.7.11 && ./configure --enable-optimizations && make altinstall
+	RUN rm -rf /usr/src/Python-3.7.11.tgz
+	RUN ln -s /usr/local/bin/python3.7 /usr/local/bin/python3
+		
 	RUN  curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp
 	RUN chmod a+rx /usr/local/bin/yt-dlp
 	
-	USER jboss
+	RUN yum update -y
+	#USER jboss
 	
 	ARG cliente
 

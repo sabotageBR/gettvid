@@ -1,7 +1,6 @@
 package com.gettvid.service.youtube;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
@@ -12,8 +11,8 @@ import javax.websocket.Session;
 import com.gettvid.api.entity.StatusVideoEnum;
 import com.gettvid.api.entity.Video;
 import com.gettvid.api.service.video.VideoService;
-import com.gettvid.enums.TypeVideoDownload;
 import com.gettvid.to.YoutubeTO;
+import com.gettvid.util.UtilString;
 import com.google.gson.Gson;
 
 public class YoutubeURLThread extends Thread{
@@ -47,8 +46,10 @@ public class YoutubeURLThread extends Thread{
 			session.getBasicRemote().sendText(gson.toJson(new YoutubeTO(youtube.getHost(), "Gettvid.com: Init Converter...")));
 			Runtime rt = Runtime.getRuntime();
 			String command = "";
+			
 			String nomeArquivo = "gettvid-com-"+UUID.randomUUID().toString();
 			String nomeArquivoCompleto = nomeArquivo+".mp4";
+			
 			String nomeFinal = "";
 			String login = comporUsername(youtube.getHost());
 			session.getBasicRemote().sendText(gson.toJson(new YoutubeTO(youtube.getHost(), "Extracting....")));

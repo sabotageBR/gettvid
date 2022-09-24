@@ -14,6 +14,7 @@ import com.gettvid.api.entity.Video;
 import com.gettvid.api.service.video.VideoService;
 import com.gettvid.enums.TypeVideoDownload;
 import com.gettvid.to.YoutubeTO;
+import com.gettvid.util.UtilString;
 import com.google.gson.Gson;
 
 public class YoutubeThread extends Thread{
@@ -43,9 +44,10 @@ public class YoutubeThread extends Thread{
 		Gson gson = new Gson();
 		Video video = null;
 		try {
+			session.getBasicRemote().sendText(gson.toJson(new YoutubeTO(youtube.getHost(), "Gettvid.com: Init Converter...")));
 			Runtime rt = Runtime.getRuntime();
 			String command = "";
-			String nomeArquivo = "gettvid-com-"+UUID.randomUUID().toString();
+			String nomeArquivo = generateFileName(youtube);
 			String nomeArquivoCompleto = nomeArquivo+".mp4";
 			String nomeFinal = "";
 			String login = comporUsername(youtube.getHost());
@@ -122,6 +124,52 @@ public class YoutubeThread extends Thread{
 			} catch (Exception e) {
 				//e.printStackTrace();
 			}
+		}
+	}
+	
+	public String generateFileName(YoutubeTO youtube) {
+		UtilString utilString = new UtilString();
+		Process proc = null;
+		BufferedReader stdInput = null;
+		BufferedReader stdError = null;
+		String s = null;
+		String retorno = "";
+		try{
+			Runtime rt = Runtime.getRuntime();
+			String command = String.format("yt-dlp --get-title %s", youtube.getHost());
+			proc = rt.exec(command);
+			stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+			stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
+			
+			while ((s = stdInput.readLine()) != null) {
+				if(!utilString.vazio(s)) {
+					retorno = s;
+				}
+			}
+		} catch (Exception e) {
+			
+		} finally {
+			try {
+				Field f = proc.getClass().getDeclaredField("pid");
+				f.setAccessible(true);
+				stdInput.close();
+				stdError.close();
+				proc.destroy();
+				proc.destroyForcibly();
+			} catch (Exception e) {
+				//e.printStackTrace();
+			}
+		}
+		if(!utilString.vazio(retorno)) {
+			retorno = utilString.removeAcentos(retorno);
+			retorno = utilString.retiraCaracteresEspeciais(retorno);
+			retorno = retorno.replace(" ","_");
+			if(retorno.length() > 100) {
+				retorno = retorno.substring(0, 100);
+			}
+			return retorno+"_gettvid.com";
+		}else {
+			return "gettvid-com-"+UUID.randomUUID().toString();
 		}
 	}
 
