@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="https://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:itm="http://java.sun.com/jsf/composite/components"
+	template="/WEB-INF/templates/default_index.xhtml">
+
+	<ui:param name="linguagem" value="en" />
+	
+	<ui:param name="description" value="#{resources['label.global.texto1']}" />
+	
+	<ui:param name="color" value="#{siteController.to.site.color}" />
+	
+	<ui:param name="title" value="#{siteController.to.site.title}" />
+	
+	<ui:param name="description" value="#{siteController.to.site.description}" />
+	
+	<ui:param name="canonical" value="https://gettvid.com/site/#{siteController.to.site.url}" />
+	
+	<ui:param name="url" value="#{siteController.to.site.url}" />
+	
+	
+	
+	<ui:define name="corpo">
+		<ui:include src="site.xhtml" />
+	</ui:define>
+</ui:composition>
+
