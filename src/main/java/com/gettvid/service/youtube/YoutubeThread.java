@@ -161,6 +161,8 @@ public class YoutubeThread extends Thread{
 			}
 		}
 		if(!utilString.vazio(retorno)) {
+			retorno = retorno.replace("-"," ");
+			retorno = retorno.replace("_"," ");
 			retorno = utilString.removeAcentos(retorno);
 			retorno = utilString.retiraCaracteresEspeciais(retorno);
 			retorno = retorno.replace(" ","_");

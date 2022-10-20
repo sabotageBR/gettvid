@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="https://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -10,7 +10,7 @@
 	<h:head>
 		<meta name="propeller" content="87c3d748f7d5ed9c4fea687654b8841d" />
 		<title>#{title}</title>
-		<meta name="description" content="#{resources['label.global.texto1']}" />
+		<meta name="description" content="#{description}" />
 		<meta name="Cache-Control" content="max-age=3600" />
 		<meta name="keywords" content="#{title}" />
 		
@@ -19,9 +19,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="robots" content="index, follow" />
+		
 		<meta property="og:title" content="#{title}" />
 		<meta property="og:description" content="#{summary}" />
 		<meta property="og:image" content="#{thumb}" />
+		<meta property="og:url" content="https://gettvid.com/#{urlName}"/>
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="#{linguagem}" />
+		
 		
 		<link rel="alternate" href="https://gettvid.com/#{urlName}" hreflang="#{linguagem}" />
 		

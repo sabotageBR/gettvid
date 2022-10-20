@@ -22,7 +22,7 @@ public class BlogController extends AbstractController<BlogTO>{
 		
 		String parameter = getRequest().getParameter("parameter");
 		if(parameter != null && !parameter.equals("new")) {
-			getTo().setBlog(blogService.recoverByUrlName(parameter));
+			getTo().setBlog(blogService.recoverByUrlName(parameter.toLowerCase()));
 		}else if(parameter != null && parameter.equals("new")){
 			getTo().setBlog(new Blog());
 		}else {

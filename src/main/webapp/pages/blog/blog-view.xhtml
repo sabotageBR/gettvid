@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="https://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -12,17 +12,20 @@
 	<ui:param name="summary" value="#{blogController.to.blog.summary}" />
 	<ui:param name="thumb" value="#{blogController.to.blog.thumb}" />
 	
+	<ui:param name="description" value="#{blogController.to.blog.title}" />
+	
 	<ui:define name="corpo">
 		<div class="container">
-				<br />
-				<br />
-				<h1 class="title center">#{blogController.to.blog.title}</h1>
-				<h4 class="center"><h:outputText value="#{blogController.to.blog.dateAdd}" converter="LocalDateTimeConverter" /></h4>
 				<br />
 				<br />
 				<h:outputText value="#{blogController.to.blog.text}" escape="false" />			
 				<br />
 				<br />
+			<div id="link-sites">
+				<ui:repeat var="site" value="#{combosBean.sites}">
+					<a style="margin-top:5px;color:#{site.color}" href="https://gettvid.com/site/#{site.url}" title="#{site.title}">#{site.title}</a>
+				</ui:repeat>
+			</div>					
 		</div>	
 	</ui:define>
 </ui:composition>

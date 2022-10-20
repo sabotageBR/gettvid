@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
+import com.gettvid.api.entity.Afiliate;
 import com.gettvid.api.entity.Video;
 import com.gettvid.enums.TypeVideoDownload;
 import com.gettvid.util.UtilCollection;
@@ -21,8 +22,9 @@ public class YoutubeTO extends NettoolsTO{
 	private TypeVideoDownload tipo;
 	private List<Video> lastVideos;
 	private List<Video> topVideos;
-	
+	private List<Afiliate> afiliates;
 	private UtilCollection<Video> utilCollection = new UtilCollection<Video>();
+	
 	public YoutubeTO() {
 		
 	}
@@ -37,9 +39,10 @@ public class YoutubeTO extends NettoolsTO{
 		setTipo(tipo);
 	}
 	
-	public YoutubeTO(List<Video> lastVideos,List<Video> topVideos) {
+	public YoutubeTO(List<Video> lastVideos,List<Video> topVideos,List<Afiliate> afiliates) {
 		setLastVideos(lastVideos);
 		setTopVideos(topVideos);
+		setAfiliates(afiliates);
 		utilCollection.ordenarListaDesc(getTopVideos(),"countDown");
 		utilCollection.ordenarListaDesc(getLastVideos(),"dateAdd");
 	}
@@ -104,6 +107,12 @@ public class YoutubeTO extends NettoolsTO{
 	}
 	public void setTopVideos(List<Video> topVideos) {
 		this.topVideos = topVideos;
+	}
+	public List<Afiliate> getAfiliates() {
+		return afiliates;
+	}
+	public void setAfiliates(List<Afiliate> afiliates) {
+		this.afiliates = afiliates;
 	}
 	
 }

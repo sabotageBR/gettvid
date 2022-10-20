@@ -16,18 +16,20 @@ import com.gettvid.util.UtilData;
 @Stateless
 public class CleanDownloadThread {
 
-	@Schedule(info = "CLEAN_DOWNLOAD", second = "*/10", minute = "*", hour = "*", persistent = false)
+	@Schedule(info = "CLEAN_DOWNLOAD", minute = "*", hour = "*", persistent = false)
 	private void cleanFiles() {
-		try (Stream<Path> paths = Files.list(Paths.get(System.getProperty("user.home")))) {
+		try (Stream<Path> paths = Files.list(Paths.get("/opt/jboss"))) {
 			paths.filter(arquivo -> Files.isRegularFile(arquivo) && (arquivo.getFileName().toString().contains("mp4")
 					|| arquivo.getFileName().toString().contains("mp3"))).forEach(arquivo -> {
 						try {
 							BasicFileAttributes attr = Files.readAttributes(arquivo, BasicFileAttributes.class);
-							long dif  = UtilData.getDiferencaMinutos(new Date(), new Date(attr.lastModifiedTime().toMillis()));
-							if(dif > 720) {
+							long dif  = UtilData.getDiferencaMinutos(new Date(), new Date(attr.lastAccessTime().toMillis()));
+							if(dif > 480) {
 								System.out.println(String.format("APAGANDO ARQUIVO: %s : %s : %s",arquivo.getFileName().toString(),attr.lastModifiedTime(),String.valueOf(dif)));
 								Files.delete(arquivo);
-							}	
+							}else {
+								//System.out.println(dif + "min: " +arquivo.getFileName());
+							}
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

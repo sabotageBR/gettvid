@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="https://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -7,6 +7,12 @@
 	template="/WEB-INF/templates/default_index.xhtml">
 
 	<ui:param name="linguagem" value="en" />
+	
+	<ui:param name="description" value="#{resources['label.global.texto1']}" />
+	
+	<ui:param name="title" value="#{resources['label.global.tituloglobal']}" />
+	
+	<ui:param name="canonical" value="https://gettvid.com" />
 	
 	<ui:define name="corpo">
 		<ui:include src="index.xhtml" />

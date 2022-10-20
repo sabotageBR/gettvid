@@ -25,10 +25,10 @@ FROM evandromoura/wildfly:nettools-2.0
 	# 	chmod a+x $JBOSS_HOME/docker-entrypoint.sh
 
 	#KUBE_PING
-	COPY kubernetes/kubeping-module $JBOSS_HOME/modules/system/layers/base/org/jgroups/kubernetes
+	#COPY kubernetes/kubeping-module $JBOSS_HOME/modules/system/layers/base/org/jgroups/kubernetes
 	
 	#CONEXAO
-	COPY kubernetes/standalone-full-ha.xml $JBOSS_HOME/standalone/configuration/standalone-full-ha.xml
+	COPY kubernetes/standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
 	COPY kubernetes/postgresql-42.2.23.jre6.jar $JBOSS_HOME/standalone/deployments/
 
 	#BUILD

@@ -11,10 +11,13 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import com.gettvid.api.entity.Afiliate;
+import com.gettvid.api.entity.Site;
 import com.gettvid.api.entity.Video;
+import com.gettvid.api.service.afiliate.AfiliateService;
+import com.gettvid.api.service.site.SiteService;
 import com.gettvid.api.service.video.VideoService;
 import com.gettvid.enums.TypeVideoDownload;
-import com.gettvid.service.youtube.YoutubeService;
 import com.gettvid.service.youtube.YoutubeThread;
 import com.gettvid.service.youtube.YoutubeURLThread;
 import com.gettvid.to.YoutubeTO;
@@ -25,6 +28,7 @@ import com.google.gson.Gson;
   public class YoutubeServer {
 
 	  	   private @Inject VideoService videoService;
+	  	   private @Inject AfiliateService afiliateService;
 	  		
            @OnMessage
            public void recebeMensagem(String message, Session session) {
@@ -43,7 +47,8 @@ import com.google.gson.Gson;
         	   try {
 	        	   List<Video> videosLast = videoService.searchLast(1, 12);
 	        	   List<Video> videosTop = videoService.searchTop(1, 6);
-	        	   session.getBasicRemote().sendText(new Gson().toJson(new YoutubeTO(videosLast,videosTop)));	   
+	        	   List<Afiliate> afiliates = afiliateService.listar();
+	        	   session.getBasicRemote().sendText(new Gson().toJson(new YoutubeTO(videosLast,videosTop,afiliates)));	   
         	   }catch(Exception e) {
         		   e.printStackTrace();
         	   }
