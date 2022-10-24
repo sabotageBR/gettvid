@@ -21,11 +21,20 @@
 				<h:outputText value="#{blogController.to.blog.text}" escape="false" />			
 				<br />
 				<br />
+			<div class="ftco-section center" style="padding: 00px 00px 10px;display:block" id="id-div-lastdownloads">
+				<h2 class="title">#{resources['label.global.sobre']}</h2>
+				<div style="font-size: 1.2rem">
+					<i>#{resources['label.global.textKeywords']}</i>
+				</div>
+			</div>
+			<br />
+			<br />	
 			<div id="link-sites">
 				<ui:repeat var="site" value="#{combosBean.sites}">
 					<a style="margin-top:5px;color:#{site.color}" href="https://gettvid.com/site/#{site.url}" title="#{site.title}">#{site.title}</a>
 				</ui:repeat>
-			</div>					
+			</div>	
+							
 		</div>	
 	</ui:define>
 </ui:composition>

@@ -5,7 +5,6 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:itm="http://java.sun.com/jsf/composite/components">
 
-		
 		<div class="container">
 			<div class="ftco-section center" id="convert">
 				<h1 class="title">#{title}</h1>
@@ -27,7 +26,7 @@
 						</center>
 					</div>
 					<br />
-					<a id="id-button-youtube" style="margin-top: 10px;background-color: #{color}" class="btn-red"
+					<a id="id-button-youtube" style="margin-top: 10px;background-color: #{color};box-shadow:0 4px 10px #{color}" class="btn-red"
 						onclick="buttonClick()">#{resources['label.global.botaopesquisar']}</a>
 					
 					<center>
@@ -57,12 +56,6 @@
 						
 					</center>
 				</h:form>
-				<center>
-					<div id="id-panel-donate" style="display: none">
-					   <form action="https://www.paypal.com/donate" method="post" target="_top"><input type="hidden" name="business" value="UQKE3PMGTTLXN"/><input type="hidden" name="no_recurring" value="0"/><input type="hidden" name="item_name" value="Buy me a coffee"/><input type="hidden" name="currency_code" value="USD"/><input type="image" src="https://gettvid.com/statics/image/buy-coffe.svg" width="200px" height="56px" border="0" name="submit" title="Buy me a coffee!" alt="Buy me a coffee!"/></form>
-					   <br />
-					</div>
-				</center>
 				<div id="search-result"></div>
 			</div>
 			
@@ -71,6 +64,18 @@
 				<ul id="id-div-last-videos" class="listitem items-more">
 				
 				</ul>
+			</div>
+			
+			<div class="ftco-section center" style="padding: 00px 00px 10px;display:block" id="id-div-lastdownloads">
+				<h2 class="title">#{resources['label.global.sobre']}</h2>
+				<div style="font-size: 1.2rem">
+					<i>#{resources['label.global.textKeywords']}</i>
+				</div>
+			</div>
+			
+			
+			<div class="ftco-section center" style="padding: 00px 00px 10px;">
+				<ui:include src="/pages/blog/blog-include.xhtml" />
 			</div>
 			
 			<div class="ftco-section center" style="padding: 00px 00px 10px;display:none" id="id-div-topdownloads">
@@ -343,7 +348,7 @@
 			</div>
 			<div id="link-sites">
 				<ui:repeat var="site" value="#{combosBean.sites}">
-					<a style="margin-top:5px;color:#{site.color}" href="https://gettvid.com/site/#{site.url}" title="#{site.title}">#{site.title}</a>
+					<a style="margin-top:5px;color:#{site.color}" href="https://gettvid.com/site/#{site.url}" title="#{site.title}">#{site.title}</a> |
 				</ui:repeat>
 			</div>
 		</div>

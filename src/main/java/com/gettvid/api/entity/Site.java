@@ -26,6 +26,8 @@ public class Site implements java.io.Serializable {
 	private String url;
 	
 	private String color;
+	
+	private String lang;
 
 	public Integer getId() {
 		return id;
@@ -65,6 +67,14 @@ public class Site implements java.io.Serializable {
 
 	public void setColor(String color) {
 		this.color = color;
+	}
+
+	public String getLang() {
+		return lang;
+	}
+
+	public void setLang(String lang) {
+		this.lang = lang;
 	}
 			
 }

@@ -6,7 +6,7 @@
 	xmlns:itm="http://java.sun.com/jsf/composite/components"
 	template="/WEB-INF/templates/default_index.xhtml">
 
-	<ui:param name="linguagem" value="en" />
+	<ui:param name="linguagem" value="#{siteController.to.site.lang}" />
 	
 	<ui:param name="description" value="#{resources['label.global.texto1']}" />
 	
