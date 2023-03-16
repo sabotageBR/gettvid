@@ -52,12 +52,12 @@ public class YoutubeThread extends Thread{
 			String nomeFinal = "";
 			String login = comporUsername(youtube.getHost());
 			if(youtube.getTipo().equals(TypeVideoDownload.VIDEO)) {
-				command = String.format("yt-dlp %s -f b -o %s %s",login, nomeArquivoCompleto, youtube.getHost());
+				command = String.format("yt-dlp %s -f b -o %s %s --no-check-certificates",login, nomeArquivoCompleto, youtube.getHost());
 			}else if(youtube.getTipo().equals(TypeVideoDownload.MP3)) {
 				nomeArquivoCompleto = nomeArquivo+".mp3";
-				command = String.format("yt-dlp %s -o %s --extract-audio --audio-format mp3 --audio-quality 0 %s",login,nomeArquivoCompleto, youtube.getHost());
+				command = String.format("yt-dlp %s -o %s --extract-audio --audio-format mp3 --audio-quality 0 %s --no-check-certificates",login,nomeArquivoCompleto, youtube.getHost());
 			}else {
-				command = String.format("yt-dlp %s -o %s %s",login,nomeArquivoCompleto, youtube.getHost());
+				command = String.format("yt-dlp %s -o %s %s --no-check-certificates",login,nomeArquivoCompleto, youtube.getHost());
 			}
 			System.out.println(command);
 			

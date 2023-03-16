@@ -25,4 +25,8 @@ public class VideoHistoryService extends AbstractService<VideoHistory> {
 		return videoHistoryDAO.searchTop(page, maxRecords);
 	}
 	
+	public List<VideoHistory> searchTopDomain(Integer page, Integer maxRecords, String domain){
+		return videoHistoryDAO.searchTopDomain(page, maxRecords, domain);
+	}
+	
 }
