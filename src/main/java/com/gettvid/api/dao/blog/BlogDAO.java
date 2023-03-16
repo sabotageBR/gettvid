@@ -17,7 +17,7 @@ public class BlogDAO extends AbstractDAO<Blog> {
 	public List<Blog> search(Blog blog){
 		CriteriaQuery<Blog> criteria = getCriteriaBuilder().createQuery(Blog.class);
 		Root<Blog> root = criteria.from(Blog.class);
-		return getManager().createQuery(criteria.select(root)).getResultList();		
+		return getManager().createQuery(criteria.select(root).orderBy(getCriteriaBuilder().desc(root.get("id")))).getResultList();		
 	}
 
 	public Blog recoverByUrlName(String urlName) {
