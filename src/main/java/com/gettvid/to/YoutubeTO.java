@@ -22,6 +22,7 @@ public class YoutubeTO extends NettoolsTO{
 	private TypeVideoDownload tipo;
 	private List<Video> lastVideos;
 	private List<Video> topVideos;
+	private List<Video> topVideosTikTok;
 	private List<Afiliate> afiliates;
 	private UtilCollection<Video> utilCollection = new UtilCollection<Video>();
 	
@@ -39,9 +40,10 @@ public class YoutubeTO extends NettoolsTO{
 		setTipo(tipo);
 	}
 	
-	public YoutubeTO(List<Video> lastVideos,List<Video> topVideos,List<Afiliate> afiliates) {
+	public YoutubeTO(List<Video> lastVideos,List<Video> topVideos,List<Afiliate> afiliates,List<Video> topVideosTikTok) {
 		setLastVideos(lastVideos);
 		setTopVideos(topVideos);
+		setTopVideosTikTok(topVideosTikTok);
 		setAfiliates(afiliates);
 		utilCollection.ordenarListaDesc(getTopVideos(),"countDown");
 		utilCollection.ordenarListaDesc(getLastVideos(),"dateAdd");
@@ -113,6 +115,12 @@ public class YoutubeTO extends NettoolsTO{
 	}
 	public void setAfiliates(List<Afiliate> afiliates) {
 		this.afiliates = afiliates;
+	}
+	public List<Video> getTopVideosTikTok() {
+		return topVideosTikTok;
+	}
+	public void setTopVideosTikTok(List<Video> topVideosTikTok) {
+		this.topVideosTikTok = topVideosTikTok;
 	}
 	
 }

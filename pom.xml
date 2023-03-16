@@ -58,6 +58,11 @@
 		    <artifactId>hibernate-envers</artifactId>
 		    <version>5.5.7.Final</version>
 		</dependency>
+		<dependency>
+		    <groupId>com.konghq</groupId>
+		    <artifactId>unirest-java</artifactId>
+		    <version>4.0.0-RC2</version>
+		</dependency>
     </dependencies>
     
     <build>

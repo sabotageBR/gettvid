@@ -140,6 +140,17 @@
 			  });
 
 
+// 			  obj.topVideosTikTok.forEach(function(value, i) {
+// 				  let idVideo = 'video-last-tiktok-'+value.id;
+// 				  if(!document.getElementById(idVideo)){
+// 					  if(inicio){
+// 						  document.getElementById('id-div-last-videos-tiktok').insertAdjacentHTML('beforeend','<li id="'+idVideo+'"><div class="post-image-tiktok bg1"><iframe allowfullscreen="true" loading="eager" scrolling="no" style="border: 0px; border-radius: 8px; height: 85vh; margin: 0px; width: 100%;" src="'+value.urlEmbed+'"></iframe></div><div class="post-content"><a href="#" onclick="javascript:searchDownload(\''+value.url+'\')"><img src="https://gettvid.com/statics/image/icon.svg" width="15px" heigth="15px" alt="'+value.url+'" title="'+value.countDown+'"/> Download</a></div></li>');
+// 					  }else{
+// 						  document.getElementById('id-div-last-videos-tiktok').insertAdjacentHTML('afterbegin','<li id="'+idVideo+'"><div class="post-image-tiktok bg1"><iframe allowfullscreen="true" loading="eager" scrolling="no" style="border: 0px; border-radius: 8px; height: 85vh; margin: 0px; width: 100%;" src="'+value.urlEmbed+'"></iframe></div><div class="post-content"><a href="#" onclick="javascript:searchDownload(\''+value.url+'\')"><img src="https://gettvid.com/statics/image/icon.svg" width="15px" heigth="15px" alt="'+value.url+'" title="'+value.countDown+'"/> Download</a></div></li>');	
+// 					  }	
+// 				  } 	
+// 			  });
+
 // 			  obj.afiliates.forEach(function(value, i) {
 // 				  let idVideo = 'afiliate-'+value.id;
 // 				  if(!document.getElementById(idVideo)){
@@ -167,9 +178,9 @@
 					  }
 					  document.getElementById('id-panel-button-download').innerHTML = '';
 					  if(document.querySelector('input[name="id-tipo"]:checked').value === 'MP3'){
-					  	 document.getElementById('id-panel-button-download').innerHTML = '<a href="'+url+'" onclick="window.open(\'https://nettools.live\',\'parent\');" class="btn btn-success">Download MP3</a>';
+					  	 document.getElementById('id-panel-button-download').innerHTML = '<a href="'+url+'" class="btn btn-success">Download MP3</a>';
 					  }else{ 
-						 document.getElementById('id-panel-button-download').innerHTML = '<a href="'+url+'" class="btn btn-success" onclick="window.open(\'https://nettools.live\',\'parent\')">Download Video</a>';
+						 document.getElementById('id-panel-button-download').innerHTML = '<a href="'+url+'" class="btn btn-success">Download Video</a>';
 					  }	
 				  }else if(obj.resultado.includes('button-url-down')){
 					  let url = obj.resultado.substring(obj.resultado.indexOf(":")+1, obj.resultado.length);
@@ -273,6 +284,7 @@
 	//]]>
 	
 	</script>
+		<div style="margin-right: 10px"></div>
 		<script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-YMLYQMTG49"></script>
 		<script>
 		  window.dataLayer = window.dataLayer || [];
@@ -282,6 +294,9 @@
 		  gtag('config', 'G-YMLYQMTG49');
 		</script>
 		<script async="async" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3327695882262362" crossorigin="anonymous"></script>
+		<script>
+		     (adsbygoogle = window.adsbygoogle || []).push({});
+		</script>
 	</h:body>
 </f:view>
 </html>

@@ -24,7 +24,7 @@ public class CleanDownloadThread {
 						try {
 							BasicFileAttributes attr = Files.readAttributes(arquivo, BasicFileAttributes.class);
 							long dif  = UtilData.getDiferencaMinutos(new Date(), new Date(attr.lastAccessTime().toMillis()));
-							if(dif >= 300) {
+							if(dif >= 120) {
 								System.out.println(String.format("APAGANDO ARQUIVO: %s : %s : %s",arquivo.getFileName().toString(),attr.lastModifiedTime(),String.valueOf(dif)));
 								Files.delete(arquivo);
 							}else {

@@ -58,6 +58,18 @@ public class VideoDAO extends AbstractDAO<Video> {
 				.getResultList();
 	}
 	
+	public List<Video> searchLastDomain(Integer page, Integer maxRecords,String domain) {
+		CriteriaQuery<Video> criteria = getCriteriaBuilder().createQuery(Video.class);
+		Root<Video> root = criteria.from(Video.class);
+		return getManager().createQuery(
+				criteria.select(root).where(
+							getCriteriaBuilder().like(root.get("url"), "%"+domain+"%"),
+							root.get("status").in(StatusVideoEnum.TRANSFER,StatusVideoEnum.FINISH)
+							).orderBy(getCriteriaBuilder().desc(root.get("dateAdd"))))
+				.setFirstResult(page > 1?Integer.valueOf(page * maxRecords)-1:0).setMaxResults(maxRecords)
+				.getResultList();
+	}
+	
 	public List<Video> searchTop(Integer page, Integer maxRecords) {
 		CriteriaQuery<Video> criteria = getCriteriaBuilder().createQuery(Video.class);
 		Root<Video> root = criteria.from(Video.class);

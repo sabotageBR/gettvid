@@ -57,6 +57,12 @@ public class Video implements java.io.Serializable {
 	@Transient
 	private String urlEmbed;
 	
+	@Transient
+	private String html;
+	
+	@Transient
+	private String img;
+	
 
 	public Video() {
 		
@@ -143,6 +149,18 @@ public class Video implements java.io.Serializable {
 	}
 	public void setUrlEmbed(String urlEmbed) {
 		this.urlEmbed = urlEmbed;
+	}
+	public String getHtml() {
+		return html;
+	}
+	public void setHtml(String html) {
+		this.html = html;
+	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
 	}
 	
 }

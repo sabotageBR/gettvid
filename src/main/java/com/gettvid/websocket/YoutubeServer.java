@@ -12,10 +12,8 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 import com.gettvid.api.entity.Afiliate;
-import com.gettvid.api.entity.Site;
 import com.gettvid.api.entity.Video;
 import com.gettvid.api.service.afiliate.AfiliateService;
-import com.gettvid.api.service.site.SiteService;
 import com.gettvid.api.service.video.VideoService;
 import com.gettvid.enums.TypeVideoDownload;
 import com.gettvid.service.youtube.YoutubeThread;
@@ -47,8 +45,9 @@ import com.google.gson.Gson;
         	   try {
 	        	   List<Video> videosLast = videoService.searchLast(1, 12);
 	        	   List<Video> videosTop = videoService.searchTop(1, 6);
+	        	   List<Video> videosTikTok = videoService.searchLastTiktok(1, 3);
 	        	   List<Afiliate> afiliates = afiliateService.listar();
-	        	   session.getBasicRemote().sendText(new Gson().toJson(new YoutubeTO(videosLast,videosTop,afiliates)));	   
+	        	   session.getBasicRemote().sendText(new Gson().toJson(new YoutubeTO(videosLast,videosTop,afiliates,videosTikTok)));	   
         	   }catch(Exception e) {
         		   e.printStackTrace();
         	   }

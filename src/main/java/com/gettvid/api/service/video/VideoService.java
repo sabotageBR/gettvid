@@ -14,7 +14,13 @@ import com.gettvid.api.entity.Video;
 import com.gettvid.api.entity.VideoHistory;
 import com.gettvid.api.service.AbstractService;
 import com.gettvid.api.service.videohistory.VideoHistoryService;
+import com.gettvid.to.TikTokVideoTO;
 import com.gettvid.util.UtilURLEmbedVideo;
+import com.google.gson.Gson;
+
+import kong.unirest.HttpResponse;
+import kong.unirest.Unirest;
+import kong.unirest.UnirestInstance;
 
 
 @Stateless
@@ -40,6 +46,16 @@ public class VideoService extends AbstractService<Video> {
 		return videos;
 	}
 	
+	public List<Video> searchLastTiktok(Integer page, Integer maxRecords){
+		List<Video> videos = videoDAO.searchLastDomain(page, maxRecords,"www.tiktok.com/@");
+		for(Video video:videos) {
+			if(video.getUrl().contains("video/")) {
+    			video.setUrlEmbed("https://www.tiktok.com/embed/v2/"+video.getUrl().substring(video.getUrl().indexOf("video/")+6, video.getUrl().length()));
+    		}
+		}
+		return videos;
+	}
+	
 	public List<Video> searchTop(Integer page, Integer maxRecords){
 	    List<VideoHistory> histories = videoHistoryService.searchTop(page, maxRecords);	
 	    List<Video> videos = new ArrayList<Video>();
@@ -49,6 +65,24 @@ public class VideoService extends AbstractService<Video> {
 		    	if(video != null && video.getUrl() != null) {
 			    	video.setUrlEmbed(UtilURLEmbedVideo.getUrlEmbed(video.getUrl()));		
 			    	videos.add(video);
+		    	}	
+		    }
+	    }    
+		return videos;
+	}
+	
+	public List<Video> searchTopTikTok(Integer page, Integer maxRecords){
+	    List<VideoHistory> histories = videoHistoryService.searchTopDomain(page, maxRecords,"www.tiktok.com/@");	
+	    List<Video> videos = new ArrayList<Video>();
+	    UnirestInstance unirestInstance = Unirest.spawnInstance();
+	    if(histories != null) {
+		    for(VideoHistory videoHistory:histories) {
+		    	Video video = videoDAO.recuperar(videoHistory.getId());
+		    	if(video != null && video.getUrl() != null) {
+		    		if(video.getUrl().contains("video/")) {
+		    			video.setUrlEmbed("https://www.tiktok.com/embed/v2/"+video.getUrl().substring(video.getUrl().indexOf("video/")+6, video.getUrl().length()));
+		    			videos.add(video);
+		    		}
 		    	}	
 		    }
 	    }    
