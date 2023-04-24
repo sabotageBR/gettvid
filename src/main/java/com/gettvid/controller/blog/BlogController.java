@@ -1,5 +1,7 @@
 package com.gettvid.controller.blog;
 
+import java.util.Collections;
+
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
@@ -27,9 +29,9 @@ public class BlogController extends AbstractController<BlogTO>{
 			getTo().setBlog(new Blog());
 		}else {
 			getTo().setBlogs(blogService.search(new Blog()));	
+			Collections.shuffle(getTo().getBlogs());
+			Collections.shuffle(getTo().getBlogs());
 		}
-		
-		
 		
 	}
 	
