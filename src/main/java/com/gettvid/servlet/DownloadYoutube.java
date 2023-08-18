@@ -31,7 +31,7 @@ public class DownloadYoutube extends HttpServlet {
 		try {
 			
 			String nomeArquivo = req.getParameter("file");
-			System.out.println(":::Fazendo download do arquivo:"+nomeArquivo);
+//			System.out.println(":::Fazendo download do arquivo:"+nomeArquivo);
 			arquivo = new File(nomeArquivo);
 			Video video = videoService.getByFilename(nomeArquivo);
 			if(arquivo.exists()) {
@@ -59,7 +59,7 @@ public class DownloadYoutube extends HttpServlet {
 	            	videoService.alterar(video);
 	            }
 			}else {
-				System.out.println("Arquivo nao existe: "+arquivo.getAbsolutePath());
+//				System.out.println("Arquivo nao existe: "+arquivo.getAbsolutePath());
 			}
         }catch(Exception e) {
         	e.printStackTrace();

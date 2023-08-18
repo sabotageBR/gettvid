@@ -54,7 +54,7 @@ public class YoutubeURLThread extends Thread{
 			String login = comporUsername(youtube.getHost());
 			session.getBasicRemote().sendText(gson.toJson(new YoutubeTO(youtube.getHost(), "Extracting....")));
 			command = String.format("yt-dlp %s -f b -o %s -g %s",login, nomeArquivoCompleto, youtube.getHost());
-			System.out.println(command);
+//			System.out.println(command);
 			
 			video = comporVideo(nomeArquivoCompleto);
 			proc = rt.exec(command);

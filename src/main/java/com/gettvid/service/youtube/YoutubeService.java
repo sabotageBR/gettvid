@@ -48,7 +48,7 @@ public class YoutubeService implements Serializable{
 			}else {
 				command = String.format("yt-dlp %s -o %s %s",login,nomeArquivoCompleto, youtube.getHost());
 			}
-			System.out.println(command);
+			//System.out.println(command);
 			proc = rt.exec(command);
 			stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
 			stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
@@ -85,7 +85,7 @@ public class YoutubeService implements Serializable{
 				if(!nomeFinal.equals("")) {
 					session.getBasicRemote().sendText(gson.toJson(new YoutubeTO(youtube.getHost(), "button-down:"+nomeFinal)));
 				}else {
-					System.out.println("video nao exportado");
+					//System.out.println("video nao exportado");
 					session.getBasicRemote().sendText(gson.toJson(new YoutubeTO(youtube.getHost(), "button-error:"+nomeFinal)));
 				}
 				session.getBasicRemote().sendText(gson.toJson(new YoutubeTO(youtube.getHost(), "FIM")));
@@ -129,7 +129,7 @@ public class YoutubeService implements Serializable{
 			String login = comporUsername(youtube.getHost());
 			session.getBasicRemote().sendText(gson.toJson(new YoutubeTO(youtube.getHost(), "Extracting....")));
 			command = String.format("yt-dlp %s -f b -o %s -g %s",login, nomeArquivoCompleto, youtube.getHost());
-			System.out.println(command);
+//			System.out.println(command);
 			proc = rt.exec(command);
 			stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
 			stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
@@ -185,7 +185,7 @@ public class YoutubeService implements Serializable{
 			String nomeFinal = "";
 			String login = comporUsername(youtube.getHost());
 			command = String.format("yt-dlp %s -f b -o %s -g %s",login, nomeArquivoCompleto, youtube.getHost());
-			System.out.println(command);
+//			System.out.println(command);
 			proc = rt.exec(command);
 			stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
 			stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));

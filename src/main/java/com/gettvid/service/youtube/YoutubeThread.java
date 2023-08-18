@@ -59,7 +59,7 @@ public class YoutubeThread extends Thread{
 			}else {
 				command = String.format("yt-dlp %s -o %s %s --no-check-certificates",login,nomeArquivoCompleto, youtube.getHost());
 			}
-			System.out.println(command);
+//			System.out.println(command);
 			
 			video = comporVideo(nomeArquivoCompleto);
 			
@@ -99,7 +99,7 @@ public class YoutubeThread extends Thread{
 				if(!nomeFinal.equals("")) {
 					session.getBasicRemote().sendText(gson.toJson(new YoutubeTO(youtube.getHost(), "button-down:"+nomeFinal)));
 				}else {
-					System.out.println("video nao exportado");
+//					System.out.println("video nao exportado");
 					session.getBasicRemote().sendText(gson.toJson(new YoutubeTO(youtube.getHost(), "button-error:"+nomeFinal)));
 				}
 				session.getBasicRemote().sendText(gson.toJson(new YoutubeTO(youtube.getHost(), "FIM")));

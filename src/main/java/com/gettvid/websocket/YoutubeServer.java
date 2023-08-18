@@ -30,7 +30,7 @@ import com.google.gson.Gson;
 	  		
            @OnMessage
            public void recebeMensagem(String message, Session session) {
-        	    System.out.println("videodownload: "+message);
+//        	    System.out.println("videodownload: "+message);
         	   	YoutubeTO youtube = new Gson().fromJson(message,YoutubeTO.class);
         	   	youtube.setDateTime(LocalDateTime.now());
         	   	if(isDownloadLink(youtube)) {
