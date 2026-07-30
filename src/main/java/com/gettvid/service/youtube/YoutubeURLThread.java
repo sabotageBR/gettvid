@@ -12,6 +12,7 @@ import com.gettvid.api.entity.StatusVideoEnum;
 import com.gettvid.api.entity.Video;
 import com.gettvid.api.service.video.VideoService;
 import com.gettvid.to.YoutubeTO;
+import com.gettvid.util.UtilCdnDownload;
 import com.gettvid.util.UtilString;
 import com.google.gson.Gson;
 
@@ -63,11 +64,12 @@ public class YoutubeURLThread extends Thread{
 			while ((s = stdInput.readLine()) != null) {
 				if(session != null) {
 					if(s.contains("http")) {
-						session.getBasicRemote().sendText(gson.toJson(new YoutubeTO(youtube.getHost(), "button-url-down:"+s)));
-						urlRetorno = s;
+						String urlAttachment = UtilCdnDownload.forceAttachment(s, nomeArquivoCompleto);
+						session.getBasicRemote().sendText(gson.toJson(new YoutubeTO(youtube.getHost(), "button-url-down:"+nomeArquivoCompleto+"|"+urlAttachment)));
+						urlRetorno = urlAttachment;
 						session.getBasicRemote().sendText(gson.toJson(new YoutubeTO(youtube.getHost(), "Completed!")));
 					}
-				}	
+				}
 			}
 			while ((s = stdError.readLine()) != null) {
 				if(session != null) {

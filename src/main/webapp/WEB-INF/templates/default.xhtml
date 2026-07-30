@@ -4,42 +4,36 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	lang="#{linguagem}" manifest="https://gettvid.com/gettvid.appcache">
+	lang="#{linguagem}">
 
 <f:view contentType="text/html">
 	<h:head>
-		<meta name="propeller" content="87c3d748f7d5ed9c4fea687654b8841d" />
 		<title>#{title} | Gettvid.com</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="description" content="#{description}" />
-		<meta name="Cache-Control" content="max-age=3600" />
-		<meta name="keywords" content="#{title}" />
-		
-		<link rel="canonical" href="https://gettvid.com/#{urlName}" />
-		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="robots" content="index, follow" />
-		
+		<meta http-equiv="X-Content-Type-Options" content="nosniff" />
+		<meta name="theme-color" content="#ffffff" />
+		<meta name="application-name" content="Gettvid" />
+
+		<link rel="canonical" href="https://gettvid.com/#{urlName}" />
+
 		<meta property="og:title" content="#{title}" />
 		<meta property="og:description" content="#{summary}" />
 		<meta property="og:image" content="#{thumb}" />
-		<meta property="og:url" content="https://gettvid.com/#{urlName}"/>
-		<meta property="og:type" content="website" />
-		<meta property="og:locale" content="#{linguagem}" />
-		
-		<link rel="icon" type="image/png" href="#{thumb}" />
-		
-		<link rel="apple-touch-icon-precomposed" sizes="57x57" href="#{thumb}" />
-		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="#{thumb}" />
-		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="#{thumb}" />
-		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="#{thumb}" />
-		<link rel="apple-touch-icon-precomposed" sizes="60x60" href="#{thumb}" />
-		<link rel="apple-touch-icon-precomposed" sizes="120x120" href="#{thumb}" />
-		<link rel="apple-touch-icon-precomposed" sizes="76x76" href="#{thumb}" />
-		<link rel="apple-touch-icon-precomposed" sizes="152x152" href="#{thumb}" />
-		
-		<meta name="application-name" content="Gettvid" />
-		
+		<meta property="og:url" content="https://gettvid.com/#{urlName}" />
+		<meta property="og:type" content="article" />
+		<meta property="og:site_name" content="Gettvid" />
+		<meta property="og:locale" content="#{linguagem == 'pt' ? 'pt_BR' : 'en_US'}" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="#{title}" />
+		<meta name="twitter:description" content="#{summary}" />
+		<meta name="twitter:image" content="#{thumb}" />
+
+		<link rel="icon" type="image/svg+xml" href="/statics/image/icon.svg" />
+		<link rel="apple-touch-icon" href="/statics/image/apple-touch-icon.png" />
+
 		<link rel="stylesheet" type="text/css" href="https://gettvid.com/statics/css/style-lg.css" />
 	</h:head>
 	<h:body>
@@ -59,7 +53,7 @@
 			<ul class="flex flex-a-i-center">
 				<li><a href="mailto:gettvid@gmail.com">gettvid@gmail.com</a></li>
 			</ul>
-			<p class="mag0">© 2021 gettvid.com</p>
+			<p class="mag0">&#169; <span id="gettvid-year">2026</span> gettvid.com</p>
 		</div>
 	</footer>
 		<script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-YMLYQMTG49"></script>
@@ -67,8 +61,12 @@
 		  window.dataLayer = window.dataLayer || [];
 		  function gtag(){dataLayer.push(arguments);}
 		  gtag('js', new Date());
-		
+
 		  gtag('config', 'G-YMLYQMTG49');
+		  (function(){
+		    var y = document.getElementById('gettvid-year');
+		    if (y) y.textContent = new Date().getFullYear();
+		  })();
 		</script>
 	</h:body>
 </f:view>

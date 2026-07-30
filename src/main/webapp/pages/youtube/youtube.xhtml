@@ -140,17 +140,56 @@
 			</footer>
 		</div>	
 	</h:form>
+	<span id="gettvid-i18n"
+		data-btn-video="#{resources['label.global.buttondownloadvideo']}"
+		data-btn-mp3="#{resources['label.global.buttondownloadmp3']}"
+		data-save-hint="#{resources['label.global.saveashint']}"
+		style="display:none"></span>
 	<script>
 	//<![CDATA[
 	 document.getElementById('id-panel-footer').style.display = 'none';
 	  	
- 	  var wsocketHost = null;	
+ 	  var wsocketHost = null;
  	  var terminou = false;
-	  function connect() {         
+ 	  var pendingPayload = null;
+	  function connect() {
 		wsocketHost = new ReconnectingWebSocket("ws://gettvid.local:8080/YoutubeServer", null, {debug: true, reconnectInterval: 3000});
 		//wsocketHost = new ReconnectingWebSocket("wss://gettvid.com/YoutubeServer", null, {debug: true, reconnectInterval: 3000});
-		wsocketHost.onmessage = onMessage;  
-		wsocketHost.onopen = onOpen;  
+		wsocketHost.onmessage = onMessage;
+		wsocketHost.onopen = function(evt){
+			onOpen(evt);
+			flushPending();
+		};
+	  }
+	  function safeSend(payload){
+		if (!wsocketHost){
+			pendingPayload = payload;
+			connect();
+			return;
+		}
+		if (wsocketHost.readyState === WebSocket.OPEN){
+			wsocketHost.send(JSON.stringify(payload));
+			return;
+		}
+		pendingPayload = payload;
+		if (wsocketHost.readyState === WebSocket.CLOSED || wsocketHost.readyState === WebSocket.CLOSING){
+			connect();
+		}
+	  }
+	  function flushPending(){
+		if (pendingPayload && wsocketHost && wsocketHost.readyState === WebSocket.OPEN){
+			wsocketHost.send(JSON.stringify(pendingPayload));
+			pendingPayload = null;
+		}
+	  }
+	  function gvFocusDownload(btn){
+		if (!btn) return;
+		requestAnimationFrame(function(){
+			try { btn.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) { btn.scrollIntoView(); }
+			btn.classList.add('gv-attention');
+			setTimeout(function(){ btn.classList.remove('gv-attention'); }, 2600);
+			try { btn.focus({ preventScroll: true }); } catch (e) { btn.focus(); }
+		});
 	  }
 
 	  function onMessage(evt) {
@@ -166,13 +205,43 @@
 			  	document.getElementById('id-panel-loading').setAttribute("aria-valuenow", porcentagem);
 			  	document.getElementById('id-panel-loading').innerHTML = '<span>'+porcentagem+'</span>';
 			  	
+			  }else if(obj.resultado.includes('button-url-down')){
+				  let payload = obj.resultado.substring(obj.resultado.indexOf(":")+1);
+				  let pipeIdx = payload.indexOf('|');
+				  let filename = pipeIdx > 0 ? payload.substring(0, pipeIdx) : 'video.mp4';
+				  let url = pipeIdx > 0 ? payload.substring(pipeIdx+1) : payload;
+				  let i18n = document.getElementById('gettvid-i18n').dataset;
+				  let btnA = document.createElement('a');
+				  btnA.href = url;
+				  btnA.setAttribute('download', filename);
+				  btnA.target = '_blank';
+				  btnA.rel = 'noopener';
+				  btnA.className = 'btn btn-success';
+				  btnA.innerHTML = '<i class="fa fa-download"></i> ';
+				  btnA.appendChild(document.createTextNode(i18n.btnVideo));
+				  let hintP = document.createElement('p');
+				  hintP.className = 'save-as-hint';
+				  hintP.style.cssText = 'margin-top:10px;font-size:0.9rem;color:#666';
+				  hintP.textContent = i18n.saveHint;
+				  let container = document.getElementById('id-panel-button-download');
+				  container.innerHTML = '';
+				  container.appendChild(btnA);
+				  container.appendChild(hintP);
+				  gvFocusDownload(btnA);
 			  }else if(obj.resultado.includes('button-down')){
 				  let url = "/download/youtube?file="+obj.resultado.substring(obj.resultado.indexOf(":")+1, obj.resultado.length);
-				  if(document.querySelector('input[name="id-tipo"]:checked').value === 'MP3'){
-				  	 document.getElementById('id-panel-button-download').innerHTML = '<a href="'+url+'" class="btn btn-success"><i class="fa fa-download"></i> Download MP3</a>';
-				  }else{
-					 document.getElementById('id-panel-button-download').innerHTML = '<a href="'+url+'" class="btn btn-success"><i class="fa fa-download"></i> Download Video</a>';
-				  }	
+				  let i18n = document.getElementById('gettvid-i18n').dataset;
+				  let isMp3 = document.querySelector('input[name="id-tipo"]:checked').value === 'MP3';
+				  let labelBtn = isMp3 ? i18n.btnMp3 : i18n.btnVideo;
+				  let btnA = document.createElement('a');
+				  btnA.href = url;
+				  btnA.className = 'btn btn-success';
+				  btnA.innerHTML = '<i class="fa fa-download"></i> ';
+				  btnA.appendChild(document.createTextNode(labelBtn));
+				  let container = document.getElementById('id-panel-button-download');
+				  container.innerHTML = '';
+				  container.appendChild(btnA);
+				  gvFocusDownload(btnA);
 
 			  }else if(obj.resultado.includes('button-error')){
 				  document.getElementById('id-panel-button-download').innerHTML = '<span class="btn btn-danger"><i class="fa fa-exclamation-triangle"></i> #{resources["label.global.errodownloadvideo"]}</span>';
@@ -180,24 +249,21 @@
 			  }else{
 				  if (obj.resultado !== '' && obj.resultado.trim().length > 0){
 					  document.getElementById('id-panel-result').innerHTML += obj.resultado +'<br />';
-				  }	  
-			  }	
+				  }
+			  }
 		  }else{
 			  document.getElementById("id-button-youtube").disabled = false;
 			  document.getElementById("id-button-youtube").value = "Go!";
 			  document.getElementById('id-input-host').value = '';
 		  }
-		  
+
 	  }
-	  
+
 	  function onOpen(evt) {   
 		            
 	  }
 	  
 	  var buttonClick = function(){
-		  if (wsocketHost.readyState === WebSocket.CLOSED) {
-			   connect();
-		  }
 		  if(document.getElementById('id-input-host').value){
 			  document.getElementById('id-panel-footer').style.display = 'block';
 			  document.getElementById('id-panel-button-download').innerHTML ='';
@@ -209,12 +275,12 @@
 			  document.getElementById("id-button-youtube").value = "#{resources['label.global.aguarde']}";
 			  document.getElementById('id-panel-result').innerHTML = '';
 			  document.getElementById('id-panel-result-now').innerHTML = '';
-			  
-			  wsocketHost.send(JSON.stringify({
+
+			  safeSend({
 				    ipExterno:document.getElementById('id-ip-externo').value,
 				    tipo:document.querySelector('input[name="id-tipo"]:checked').value,
-				  	host: document.getElementById('id-input-host').value	
-			  }));
+				  	host: document.getElementById('id-input-host').value
+			  });
 			  let hostApi = compositeApi(document.getElementById('id-input-host').value,document.querySelector('input[name="id-tipo"]:checked').value);
 			  let link = "<a href='"+hostApi+"' target='blank'>"+hostApi+"</a>";
 		  }else{
