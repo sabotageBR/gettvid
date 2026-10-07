@@ -15,8 +15,6 @@ import com.gettvid.api.entity.Afiliate;
 import com.gettvid.api.entity.Video;
 import com.gettvid.api.service.afiliate.AfiliateService;
 import com.gettvid.api.service.video.VideoService;
-import com.gettvid.enums.TypeVideoDownload;
-import com.gettvid.service.youtube.YoutubeThread;
 import com.gettvid.service.youtube.YoutubeURLThread;
 import com.gettvid.to.YoutubeTO;
 import com.google.gson.Gson;
@@ -33,11 +31,11 @@ import com.google.gson.Gson;
 //        	    System.out.println("videodownload: "+message);
         	   	YoutubeTO youtube = new Gson().fromJson(message,YoutubeTO.class);
         	   	youtube.setDateTime(LocalDateTime.now());
-        	   	if(isDownloadLink(youtube)) {
-        	   		new YoutubeURLThread(youtube, session,videoService).start();
-        	   	}else {
-        	   		new YoutubeThread(youtube, session,videoService).start();
-        	   	}
+        	   	// Sempre pela extracao de URL, para qualquer tipo e qualquer host: o
+        	   	// servidor apenas devolve o link do CDN e o trafego vai direto para o
+        	   	// usuario. Quando nao da para extrair, o pedido falha - nao existe
+        	   	// fallback baixando no servidor.
+        	   	new YoutubeURLThread(youtube, session,videoService).start();
            }
            
            @OnOpen
@@ -63,23 +61,5 @@ import com.google.gson.Gson;
            public void closedConnection(Session session) { 
            }
            
-           
-           private boolean isDownloadLink(YoutubeTO youtubeTO) {
-        	   if(youtubeTO.getTipo().equals(TypeVideoDownload.VIDEO) && 
-        			   (youtubeTO.getHost().contains("youtube.com") ||
-        			   youtubeTO.getHost().contains("youtu.be") ||
-        			   youtubeTO.getHost().contains("facebook") ||
-        			   youtubeTO.getHost().contains("fb.watch") ||
-        			   youtubeTO.getHost().contains("fb.com") ||
-        			   youtubeTO.getHost().contains("twitter") ||
-        			   youtubeTO.getHost().contains("instagram") 
-        			   )) {
-        		   return true;
-        	   }
-        	   return false;
-        	   
-           }
-           
-			
            
   }

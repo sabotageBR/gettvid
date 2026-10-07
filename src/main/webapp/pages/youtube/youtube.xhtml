@@ -153,8 +153,12 @@
  	  var terminou = false;
  	  var pendingPayload = null;
 	  function connect() {
-		wsocketHost = new ReconnectingWebSocket("ws://gettvid.local:8080/YoutubeServer", null, {debug: true, reconnectInterval: 3000});
-		//wsocketHost = new ReconnectingWebSocket("wss://gettvid.com/YoutubeServer", null, {debug: true, reconnectInterval: 3000});
+		// Derivado do endereco da pagina: funciona em gettvid.local:8080 e em
+		// gettvid.com sem precisar trocar a linha na mao antes de cada build.
+		// O wss e obrigatorio quando a pagina e https - o browser bloqueia ws
+		// como mixed content.
+		var wsProtocolo = location.protocol === 'https:' ? 'wss://' : 'ws://';
+		wsocketHost = new ReconnectingWebSocket(wsProtocolo + location.host + "/YoutubeServer", null, {debug: true, reconnectInterval: 3000});
 		wsocketHost.onmessage = onMessage;
 		wsocketHost.onopen = function(evt){
 			onOpen(evt);

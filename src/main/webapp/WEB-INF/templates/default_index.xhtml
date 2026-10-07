@@ -18,9 +18,15 @@
 		<meta name="application-name" content="Gettvid" />
 
 		<link rel="canonical" href="#{canonical}" />
-		<link rel="alternate" hreflang="en" href="https://gettvid.com/en" />
-		<link rel="alternate" hreflang="pt-BR" href="https://gettvid.com/pt" />
-		<link rel="alternate" hreflang="x-default" href="https://gettvid.com/en" />
+
+		<!-- hreflang so nas paginas que realmente tem versao traduzida (/, /en, /pt).
+		     As paginas /site/* sao monolingues: emitir este cluster nelas gerava
+		     hreflang sem auto-referencia e em conflito com o proprio canonical. -->
+		<ui:fragment rendered="#{multilingue}">
+			<link rel="alternate" hreflang="en" href="https://gettvid.com/en" />
+			<link rel="alternate" hreflang="pt-BR" href="https://gettvid.com/pt" />
+			<link rel="alternate" hreflang="x-default" href="https://gettvid.com/en" />
+		</ui:fragment>
 
 		<meta property="og:title" content="#{title} | gettvid.com" />
 		<meta property="og:description" content="#{description}" />
@@ -43,31 +49,14 @@
 
 		<link rel="stylesheet" type="text/css" href="/statics/css/style-lg.css" />
 
+		<script async="async"
+			src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7271150679188760"
+			crossorigin="anonymous"></script>
+
 		<script type="application/ld+json">
 		{
 		  "@context": "https://schema.org",
 		  "@graph": [
-		    {
-		      "@type": "WebApplication",
-		      "@id": "https://gettvid.com/#webapp",
-		      "name": "Gettvid",
-		      "url": "https://gettvid.com",
-		      "applicationCategory": "MultimediaApplication",
-		      "operatingSystem": "Any",
-		      "browserRequirements": "Requires JavaScript. Requires HTML5.",
-		      "inLanguage": ["en", "pt-BR"],
-		      "offers": {
-		        "@type": "Offer",
-		        "price": "0",
-		        "priceCurrency": "USD"
-		      },
-		      "featureList": [
-		        "Download videos from YouTube, Facebook, Instagram, Twitter, TikTok and 1000+ sites",
-		        "Convert videos to MP3 audio",
-		        "No registration required",
-		        "Works on any device with a browser"
-		      ]
-		    },
 		    {
 		      "@type": "Organization",
 		      "@id": "https://gettvid.com/#org",
@@ -81,6 +70,7 @@
 		      "@id": "https://gettvid.com/#website",
 		      "url": "https://gettvid.com",
 		      "name": "Gettvid",
+		      "description": "Download videos from YouTube, Facebook, Instagram, Twitter, TikTok and 1000+ sites, or convert them to MP3 audio. Free, no registration, works on any device with a browser.",
 		      "publisher": { "@id": "https://gettvid.com/#org" },
 		      "inLanguage": ["en", "pt-BR"]
 		    }

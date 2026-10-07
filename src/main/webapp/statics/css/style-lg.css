@@ -986,7 +986,10 @@ h1, h2, h3, h4 { color: var(--gv-text); letter-spacing: -0.01em; }
     padding: 14px 20px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    /* A logo fica centralizada na pagina. O .language nao interfere porque ja e
+       position:absolute, ou seja, esta fora do fluxo do flex - com space-between
+       a logo era empurrada para a esquerda por ser o unico item em fluxo. */
+    justify-content: center;
     gap: 16px;
 }
 .main_nav .logo { font-size: 1.3rem; font-weight: 700; }
