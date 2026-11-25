@@ -56,6 +56,10 @@
 				</h:form>
 				<div id="search-result"></div>
 			</div>
+			<ui:include src="/pages/includes/cg-ad.xhtml">
+				<ui:param name="variante" value="h" />
+				<ui:param name="campanha" value="gettvid-home" />
+			</ui:include>
 			<div class="ftco-section center" id="id-div-lastdownloads">
 				<h2 class="title">#{resources['label.global.lastdownloads']}</h2>
 				<ul id="id-div-last-videos" class="listitem items-more">
